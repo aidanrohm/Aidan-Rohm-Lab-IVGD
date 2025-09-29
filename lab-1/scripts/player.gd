@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 # A built in function that Godot calls about 60 times per second
 # Useful for continuous things that are meant to be in tune with physics, such as movement
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Get the input from the user actions
 	var direction = Vector2(
 		# get_action_strength returns 1 if the button is pressed, 0 if not

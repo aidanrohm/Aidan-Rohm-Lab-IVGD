@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_collectible_collected(value: int) -> void:
 	score += value
 	_update_score_label()
-	if $Collectibles.get_child_count() == 0:
+	if $Collectible.get_child_count() == 0:
 		_score_label.text = "All collected! %d" % score
 		
 func _update_score_label() -> void:

@@ -1,20 +1,62 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7j515ars43yn"]
+[gd_scene load_steps=6 format=3 uid="uid://c7j515ars43yn"]
 
 [ext_resource type="PackedScene" uid="uid://dngymvbjo2qw0" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://b0w4w4epv77ka" path="res://scenes/collectible.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://baapg1ch1gf6m" path="res://scripts/collectible.gd" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://dvcxmnhyvxife" path="res://scripts/main.gd" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://7ngocdwpvjtw" path="res://assets/Coin.png" id="4_jyhfs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jyhfs"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("3_sugp2")
 
-[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_o5qli")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Collectibles" type="Node2D" parent="."]
 
-[node name="Collectible" parent="Collectibles" instance=ExtResource("2_0wfyh")]
+[node name="Collectible1" type="Area2D" parent="Collectibles"]
+script = ExtResource("2_sugp2")
 
-[node name="Collectible2" parent="Collectibles" instance=ExtResource("2_0wfyh")]
-position = Vector2(250, 300)
+[node name="Sprite2D" type="Sprite2D" parent="Collectibles/Collectible1"]
+position = Vector2(200, 300)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("4_jyhfs")
 
-[node name="Collectible3" parent="Collectibles" instance=ExtResource("2_0wfyh")]
-position = Vector2(700, 200)
-script = ExtResource("3_sugp2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Collectible1"]
+position = Vector2(200, 300)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_jyhfs")
+
+[node name="Collectible2" type="Area2D" parent="Collectibles"]
+position = Vector2(200, -150)
+script = ExtResource("2_sugp2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Collectibles/Collectible2"]
+position = Vector2(200, 300)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("4_jyhfs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Collectible2"]
+position = Vector2(200, 300)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_jyhfs")
+
+[node name="Collectible3" type="Area2D" parent="Collectibles"]
+position = Vector2(500, 100)
+script = ExtResource("2_sugp2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Collectibles/Collectible3"]
+position = Vector2(200, 300)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("4_jyhfs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Collectible3"]
+position = Vector2(200, 300)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_jyhfs")
