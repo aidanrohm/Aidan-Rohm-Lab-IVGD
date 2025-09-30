@@ -7,6 +7,7 @@ extends CharacterBody2D
 func _physics_process(_delta: float) -> void:
 	# Get the input from the user actions
 	var direction = Vector2(
+		
 		# get_action_strength returns 1 if the button is pressed, 0 if not
 		# This setup allows us to move the player right if the left key is not pressed
 		# This is similar for all other movement cases
@@ -22,6 +23,8 @@ func _physics_process(_delta: float) -> void:
 	velocity = direction * speed
 	
 	# A built in function that uses the variable velocity
-	# Has built in collision detection, and will "slide" along walls instead of simply stopping on collision
+	# Has built in collision detection, which allows me to emit code for the rock functionality
+	# Rocks are given a StaticBody2D type, which natively allows collisions to happen without code
+	# ^^^ THIS IS SO COOL ^^^
 	move_and_slide()
 	
