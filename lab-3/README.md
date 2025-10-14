@@ -17,3 +17,7 @@ To test the swarming mechanic, I recommend jumping to the level of platforms and
 easy to see the mushrooms below swarm/chase the player.
 
 I am looking forward to some feedback and a chance to improve!
+
+--> The ABOVE is documentation from Lab 2 <--
+--> Lab 3 was started as a duplicate of Lab 2 and will be expanding on the concepts and structures from the previous lab <--
+
