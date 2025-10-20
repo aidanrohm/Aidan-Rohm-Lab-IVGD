@@ -6,10 +6,14 @@ const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackRange  # The new attack range Area2D
+@onready var lives_label = get_tree().get_root().get_node("Main/UI/LivesLabel") # Update path to match your scene
 
 var is_attacking: bool = false # Flag to track if attack animation is playing
 var can_attack: bool = false # Flag to allow continuous attack while overlapping
 var overlapping_mushrooms: Array = [] # List of mushrooms currently inside attack range
+
+# --- Player Lives System ---
+var lives: int = 3 # Player starts with 3 lives
 
 func _ready():
 	# Connect to detect when animations finish
@@ -18,6 +22,9 @@ func _ready():
 	# Connect the attack area signals to track overlapping mushrooms
 	attack_area.area_entered.connect(_on_attack_area_area_entered)
 	attack_area.area_exited.connect(_on_attack_area_area_exited)
+	
+	# Initialize lives label on scene start
+	_update_lives_label()
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity
@@ -47,6 +54,7 @@ func _physics_process(delta: float) -> void:
 		is_attacking = true
 		can_attack = true # Allow attacks to trigger continuously while overlapping
 		animated_sprite.play("attack")
+		$AttackSound.play()
 	
 	# Apply attack to all overlapping mushrooms if attack is active
 	if is_attacking and can_attack:
@@ -86,3 +94,27 @@ func _on_attack_area_area_exited(area: Area2D):
 	# Remove mushrooms leaving attack range
 	if area.is_in_group("mushroom_hitbox"):
 		overlapping_mushrooms.erase(area.get_parent())
+
+# --- LIFE SYSTEM ---
+
+# Called when player touches the killbox
+func lose_life():
+	lives -= 1
+	_update_lives_label()
+
+	# If no lives remain, end the game or reload scene
+	if lives <= 0:
+		_game_over()
+	else:
+		print("Player lost a life! Remaining: %d" % lives)
+		# Respawn handled by Killbox, so no need to move player here
+
+# Update the label UI on screen
+func _update_lives_label():
+	if lives_label:
+		lives_label.text = "Lives: %d" % lives
+
+# Handle when lives reach 0
+func _game_over():
+	print("Game Over! Restarting scene...")
+	get_tree().reload_current_scene()

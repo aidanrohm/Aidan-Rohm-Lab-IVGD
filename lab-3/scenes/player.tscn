@@ -1,7 +1,8 @@
-[gd_scene load_steps=44 format=3 uid="uid://cfk34clxvyxak"]
+[gd_scene load_steps=45 format=3 uid="uid://cfk34clxvyxak"]
 
 [ext_resource type="Script" uid="uid://wfrxvmi0yo6y" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://hf3kbnnwkpwu" path="res://assets/green/char_green_1.png" id="2_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://c3c85045ha3xq" path="res://assets/woosh.mp3" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tefeu"]
 radius = 11.0
@@ -297,8 +298,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tipki"]
-radius = 39.0
-height = 78.0
+radius = 26.0
+height = 52.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
@@ -316,4 +317,8 @@ offset = Vector2(0, -3)
 [node name="AttackRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_tipki")
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_qhqgy")

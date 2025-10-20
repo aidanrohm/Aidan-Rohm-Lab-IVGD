@@ -1,24 +1,23 @@
 extends CharacterBody2D
 
-@export var speed: float = 50.0            	# Wandering speed
-@export var chase_speed: float = 100.0     	# Speed when chasing player
+@export var speed: float = 50.0				# Wandering speed
+@export var chase_speed: float = 100.0		# Speed when chasing player
 @export var wander_min_time: float = 0.5	# Min time for wandering on one execute
 @export var wander_max_time: float = 2.0	# Max time for wandering on one execute
 @export var idle_min_time: float = 0.5		# Min time for idling (time after execute of wander)
 @export var idle_max_time: float = 1.5		# Max time for idling (time after execute of wander)
-@export var attack_threshold: float = 50.0  # Distance to stop running toward player
+@export var attack_threshold: float = 50.0	# Distance to stop running toward player
 
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D  	# Controls which animations run
-@onready var detection_area: Area2D = $DetectionArea	 	# Detects when the player enters/exits
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D	# Controls which animations run
+@onready var detection_area: Area2D = $DetectionArea		# Detects when the player enters/exits
 @onready var edge_ray: RayCast2D = $EdgeRay				# Detects platform edges
 
 # Defaults for flagging and behavior
 var is_chasing: bool = false
-var player: Node2D = null # Stores a reference so the mushroom can chase the player
+var player: Node2D = null				# Stores a reference so the mushroom can chase the player
 var wandering: bool = false
-var direction: int = 1  # 1 = right, -1 = left
-var is_damaged: bool = false # Flag so mushroom doesn’t double-trigger the damage animation
-var is_dead: bool = false # Flag for death state
+var direction: int = 1					# 1 = right, -1 = left
+var is_dead: bool = false				# Flag for death state
 
 # Add gravity
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -36,13 +35,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Stop everything if dead
+	# Stop all logic if dead — allows death animation/sound to finish undisturbed
 	if is_dead:
-		queue_free()
-		return
-
-	# Don’t move while damaged
-	if is_damaged:
 		move_and_slide()
 		return
 
@@ -53,7 +47,7 @@ func _physics_process(delta):
 	velocity.x = 0
 
 	# Edge detection: turn around if no ground in front
-	if not edge_ray.is_colliding() and not is_damaged:
+	if not edge_ray.is_colliding() and not is_dead:
 		direction *= -1
 
 	if is_chasing and player:
@@ -64,20 +58,20 @@ func _physics_process(delta):
 		if distance > attack_threshold:
 			velocity.x = chase_speed * sign(dx)
 			direction = 1 if velocity.x > 0 else -1
-			if not is_damaged:
+			if not is_dead:
 				anim.play("run")
-				anim.flip_h = velocity.x > 0  # Correct facing for sprite facing left by default
+				anim.flip_h = velocity.x > 0	# Correct facing for sprite facing left by default
 		else:
 			velocity.x = 0
-			if not is_damaged:
-				anim.play("idle") # Stop running when close to player
+			if not is_dead:
+				anim.play("idle")	# Stop running when close to player
 	else:
 		# Wandering behavior if not chasing
 		velocity.x = direction * speed
-		if velocity.x != 0 and not is_damaged:
+		if velocity.x != 0 and not is_dead:
 			anim.play("run")
-			anim.flip_h = velocity.x > 0  # Correct facing for sprite facing left by default
-		elif not is_damaged:
+			anim.flip_h = velocity.x > 0	# Correct facing for sprite facing left by default
+		elif not is_dead:
 			anim.play("idle")
 
 	# Move and detect collisions
@@ -89,7 +83,7 @@ func _physics_process(delta):
 		var other = collision.get_collider()
 		
 		if other.is_in_group("mushroom") or other.is_in_group("boundary"):
-			direction *= -1 # Mushroom flips direction if it collides with a wall/other mushroom
+			direction *= -1	# Mushroom flips direction if it collides with a wall/other mushroom
 			break
 
 func _start_wandering():
@@ -111,14 +105,14 @@ func _wander_loop() -> void:
 
 		# Idle
 		velocity.x = 0
-		if not is_damaged:
+		if not is_dead:
 			anim.play("idle")
 			
 		# Idle for random duration as specified at the beginning of the code
 		var idle_time = randf_range(idle_min_time, idle_max_time)
 		await get_tree().create_timer(idle_time).timeout
 
-	wandering = false  # Exited loop because chasing started
+	wandering = false	# Exited loop because chasing started
 
 func _on_player_entered(body: Node):
 	'''
@@ -154,17 +148,25 @@ func take_damage(_player_pos: Vector2):
 	This triggers when the player’s attack hits the mushroom.
 	Plays damage animation first. Once complete, plays death animation and despawns.
 	'''
-	if is_dead or is_damaged:
+	if is_dead:
 		return
 
-	# Play damage animation
-	is_damaged = true
-	anim.play("damage")
-	await anim.animation_finished
-	is_damaged = false
-
-	# Begin death sequence
+	# --- DEATH PHASE ---
 	is_dead = true
+	is_dead = true
+
+	# Disable interactions and movement
+	collision_layer = 0
+	collision_mask = 0
+	detection_area.monitoring = false
+	velocity = Vector2.ZERO
+
+	# Play death animation and sound
 	anim.play("death")
+	$DeathSound.play()
+
+	# Wait for death animation to finish
 	await anim.animation_finished
+
+	# Remove the node after the animation completes
 	queue_free()

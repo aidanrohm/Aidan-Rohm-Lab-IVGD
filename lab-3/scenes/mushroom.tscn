@@ -1,18 +1,19 @@
-[gd_scene load_steps=45 format=3 uid="uid://coeupelbn6wq4"]
+[gd_scene load_steps=46 format=3 uid="uid://coeupelbn6wq4"]
 
 [ext_resource type="Script" uid="uid://4yrgf41lyetm" path="res://scripts/mushroom.gd" id="1_lnrix"]
 [ext_resource type="Texture2D" uid="uid://c45egacdush3p" path="res://assets/mushroom/Mushroom-Hit.png" id="2_6c3h1"]
 [ext_resource type="Texture2D" uid="uid://byyfokqhborg4" path="res://assets/mushroom/Mushroom-Idle.png" id="2_h31it"]
 [ext_resource type="Texture2D" uid="uid://kydyaj87aotm" path="res://assets/mushroom/Mushroom-Die.png" id="3_f4pa7"]
 [ext_resource type="Texture2D" uid="uid://d2gkalkhhv6xa" path="res://assets/mushroom/Mushroom-Run.png" id="3_psnc3"]
+[ext_resource type="AudioStream" uid="uid://codjdfdypth8o" path="res://assets/mushroomdeath.wav" id="6_jekqn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_choun"]
 radius = 7.0
 height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tipki"]
-radius = 49.0
-height = 98.0
+radius = 27.0
+height = 54.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6c3h1"]
 radius = 13.0
@@ -297,7 +298,7 @@ shape = SubResource("CapsuleShape2D_choun")
 position = Vector2(-50, -345)
 
 [node name="RadiusShape" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(50, 345)
+position = Vector2(50, 331)
 shape = SubResource("CapsuleShape2D_tipki")
 
 [node name="Hitbox" type="Area2D" parent="." groups=["mushroom_hitbox"]]
@@ -311,3 +312,6 @@ position = Vector2(0, -7)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_chjal")
 animation = &"death"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_jekqn")

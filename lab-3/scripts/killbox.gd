@@ -16,10 +16,13 @@ func _on_body_entered(body):
 	# The player's group is detected in order to determine where to send it
 	# Not everything is meant to be respawned if it falls off the map
 	if body.is_in_group("player"):
+		# Trigger life loss first
+		body.lose_life()
+
 		if respawn_point:
 			var spawn = get_node(respawn_point)
 			body.global_position = spawn.global_position
 			
-			# Resetting the player's velocity after respawn, 
+			# Resetting the player's velocity after respawn,
 			# just to be sure it doesn't move around on a fresh spawn
 			body.velocity = Vector2.ZERO
