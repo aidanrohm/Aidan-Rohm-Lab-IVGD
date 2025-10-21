@@ -2752,30 +2752,6 @@ offset_bottom = 69.0
 text = "Lives: 3
 "
 
-[node name="KillBox" type="Area2D" parent="."]
-script = ExtResource("7_tipki")
-respawn_point = NodePath("../RespawnPoint")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
-position = Vector2(577, 649)
-shape = SubResource("RectangleShape2D_tipki")
-
-[node name="RespawnPoint" type="Node2D" parent="."]
-position = Vector2(30, 575)
-
-[node name="RightBoundary" type="StaticBody2D" parent="." groups=["boundary"]]
-position = Vector2(100, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBoundary"]
-position = Vector2(1052, 461.5)
-shape = SubResource("RectangleShape2D_choun")
-
-[node name="LeftBoundary" type="StaticBody2D" parent="." groups=["boundary"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBoundary"]
-position = Vector2(-3, 479)
-shape = SubResource("RectangleShape2D_choun")
-
 [node name="BackgroundLayer1" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(576.00006, 324.00003)
@@ -2793,6 +2769,33 @@ texture_filter = 1
 position = Vector2(577, 324)
 scale = Vector2(3.59375, 3.6)
 texture = ExtResource("3_tbgi4")
+
+[node name="KillBox" type="Area2D" parent="."]
+script = ExtResource("7_tipki")
+respawn_point = NodePath("../RespawnPoint")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
+position = Vector2(577, 649)
+shape = SubResource("RectangleShape2D_tipki")
+
+[node name="RespawnPoint" type="Node2D" parent="."]
+position = Vector2(30, 575)
+
+[node name="Checkpoint" parent="." instance=ExtResource("11_ya4ey")]
+position = Vector2(1125, 580)
+
+[node name="RightBoundary" type="StaticBody2D" parent="." groups=["boundary"]]
+position = Vector2(100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBoundary"]
+position = Vector2(1052, 461.5)
+shape = SubResource("RectangleShape2D_choun")
+
+[node name="LeftBoundary" type="StaticBody2D" parent="." groups=["boundary"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBoundary"]
+position = Vector2(-3, 479)
+shape = SubResource("RectangleShape2D_choun")
 
 [node name="Spikes" type="Node2D" parent="."]
 
@@ -2876,6 +2879,3 @@ position = Vector2(1006, 520)
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_tipki")
 autoplay = true
-
-[node name="Checkpoint" parent="." instance=ExtResource("11_ya4ey")]
-position = Vector2(1125, 580)
