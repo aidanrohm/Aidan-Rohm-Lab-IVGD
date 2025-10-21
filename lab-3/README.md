@@ -21,3 +21,18 @@ I am looking forward to some feedback and a chance to improve!
 --> The ABOVE is documentation from Lab 2 <--
 --> Lab 3 was started as a duplicate of Lab 2 and will be expanding on the concepts and structures from the previous lab <--
 
+Lab 3 implements a player attack, which is a simple swing animation that kills the mushroom
+There are 3 main ways the player can take damage:
+	1. Falling into the rocks at the bottom of the screen triggers a killbox
+	2. Being attacked by a mushroom by standing next to it for too long
+	3. Being idle for too long, which forces the player to keep moving
+	
+There is simple audio used for background music, mushroom death, player attack, and checkpoints
+
+Lives are displayed in the top left of the screen, but may be modified to display an Hboxcontainer with heart images
+(I was having trouble with the hbox so it was not implemented for this lab)
+
+MOVEMENT GUIDE:
+	The player can be moved using typical WASD controls, W and SPACE can be used for jump
+	The player's attack is mapped to the ENTER key
+	

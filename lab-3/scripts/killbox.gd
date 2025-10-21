@@ -1,9 +1,5 @@
 extends Area2D
-# Killbox was implemented because I ultimately want to keep on building this game.
-# Hopefully I can get to a point where there are platforms the mushrooms reside on.
-# The player can attack these mushrooms on these platforms and will have to kill all of them to win.
 # If the player falls off the map, they lose a life --> the need for a killbox to reset the player's position.
-# The killbox is fully implemented, just not being used for anything at the moment.
 
 # Uses a specific respawn point node in order to put the player back to a specific point
 @export var respawn_point: NodePath
@@ -18,11 +14,18 @@ func _on_body_entered(body):
 	if body.is_in_group("player"):
 		# Trigger life loss first
 		body.lose_life()
+	
+	# The mushroom should remove itself from the scene tree if it falls off the platform to its death
+	# This will be important for future development
+	if body.is_in_group("enemy"):
+		queue_free()
 
-		if respawn_point:
+		# Use checkpoint respawn if available, otherwise use respawn point
+		if "respawn_at_checkpoint" in body:
+			body.respawn_at_checkpoint()
+		elif respawn_point:
 			var spawn = get_node(respawn_point)
 			body.global_position = spawn.global_position
 			
-			# Resetting the player's velocity after respawn,
-			# just to be sure it doesn't move around on a fresh spawn
+			# Resetting the player's velocity after respawn, just to be sure it doesn't move around on a fresh spawn
 			body.velocity = Vector2.ZERO
