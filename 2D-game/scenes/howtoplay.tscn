@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://xu60cds63qac"]
+
+[ext_resource type="Script" uid="uid://buqlg7i7awub6" path="res://scripts/how_to_play.gd" id="1_hsfox"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hsfox")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.33333334, 0.1764706, 1)
+
+[node name="InstructionsLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.25
+offset_top = -137.75
+offset_right = 234.25
+offset_bottom = 137.75
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls:
+		- Move: W / A / S / D
+		- Jump: Spacebar / W
+		- Attack: Enter
+
+Objective:
+		- Eliminate all mushrooms to advance to the next level
+
+WARNING: 
+		- Try not to stay still!"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back
+"

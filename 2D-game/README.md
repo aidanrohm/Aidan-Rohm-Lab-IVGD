@@ -36,3 +36,6 @@ MOVEMENT GUIDE:
 	The player can be moved using typical WASD controls, W and SPACE can be used for jump
 	The player's attack is mapped to the ENTER key
 	
+--> The ABOVE is documentation from Lab 3 <--
+--> The 2D game was started as a duplicate of Lab 3 and will be expanding on the concepts and structures from this lab <--
+	
