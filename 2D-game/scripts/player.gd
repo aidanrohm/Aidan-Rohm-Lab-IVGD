@@ -7,7 +7,7 @@ const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackRange  			# The new attack range Area2D
-@onready var lives_label = get_tree().get_root().get_node("Main/UI/LivesLabel")
+@onready var lives_label = get_tree().get_root().get_node("Level1/UI/LivesLabel")
 
 var is_attacking: bool = false 								# Flag to track if attack animation is playing
 var can_attack: bool = false 								# Flag to allow continuous attack while overlapping
@@ -15,7 +15,7 @@ var overlapping_mushrooms: Array = [] 						# List of mushrooms currently inside
 var lives: int = 3 											# Player starts with 3 lives
 var checkpoint_position: Vector2 = Vector2(30, 575) 		# Default spawn position
 var idle_timer: float = 0.0
-const IDLE_DAMAGE_THRESHOLD: float = 3.0 					# Seconds the player can idle at spawn without moving
+const IDLE_DAMAGE_THRESHOLD: float = 1.0 					# Seconds the player can idle at spawn without moving
 
 func _ready():
 	# Connect to detect when animations finish
