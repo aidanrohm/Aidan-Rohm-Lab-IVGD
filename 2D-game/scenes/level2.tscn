@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://x0qeyeillse3" path="res://assets/tileset/oak_woods_tileset.png" id="7_wvb8j"]
 [ext_resource type="PackedScene" uid="uid://cfk34clxvyxak" path="res://scenes/player.tscn" id="8_g8vcy"]
 [ext_resource type="Script" uid="uid://dai7bdb7jkidu" path="res://scripts/player2.gd" id="9_8g4ke"]
-[ext_resource type="PackedScene" uid="uid://coeupelbn6wq4" path="res://scenes/mushroom.tscn" id="9_cqal4"]
+[ext_resource type="PackedScene" uid="uid://coeupelbn6wq4" path="res://scenes/troll.tscn" id="9_cqal4"]
 [ext_resource type="AudioStream" uid="uid://b44f45r8783ef" path="res://assets/music.mp3" id="10_o3sye"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]

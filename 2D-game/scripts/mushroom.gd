@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-
-# -- BELOW ARE NECESSARY VARIABLES FOR MUSHROOM ACTIVITY -- #
+# -- BELOW ARE NECESSARY VARIABLES FOR troll ACTIVITY -- #
 # ---------- PLACED HERE FOR EASE OF MODIFICATION --------- #
 @export var speed: float = 50.0				# Wandering speed
 @export var chase_speed: float = 100.0		# Speed when chasing player
@@ -13,18 +12,19 @@ extends CharacterBody2D
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D		# Controls which animations run
 @onready var detection_area: Area2D = $DetectionArea		# Detects when the player enters/exits
-@onready var edge_ray: RayCast2D = $EdgeRay					# Detects platform edges to keep mushrooms on platform
+@onready var edge_ray: RayCast2D = $EdgeRay					# Detects platform edges to keep trolls on platform
 
 # Defaults for flagging and behavior
-var is_chasing: bool = false			# Whether or not the mushroom is chasing
-var wandering: bool = false				# Whether or not the mushroom is wandering
-var player: Node2D = null				# Stores a reference so the mushroom can chase the player
+var is_chasing: bool = false			# Whether or not the troll is chasing
+var wandering: bool = false				# Whether or not the troll is wandering
+var player: Node2D = null				# Stores a reference so the troll can chase the player
 var direction: int = 1					# 1 = right, -1 = left
 var is_dead: bool = false				# Flag for death state
+var is_hurting: bool = false			# Flag to lock animation/logic while "damage" is playing
 var attack_counter: int = 0				# Tracks number of attacks made on player
 var player_in_range_time: float = 0.0	# Timer for player being in range
 
-# Add gravity for mushroom functionality
+# Add gravity for troll functionality
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
@@ -45,88 +45,108 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
-	# Reset horizontal movement
+	# If taking damage, lock out normal AI/animation until "damage" finishes
+	if is_hurting:
+		velocity.x = 0
+		move_and_slide()
+		return
+
+	# Reset horizontal movement before computing this frame's intent
 	velocity.x = 0
 
-	# Edge detection used to turn around if no platform is in front of the mushroom
-	if not edge_ray.is_colliding() and not is_dead:
+	# Edge detection: if no platform ahead, flip direction
+	if not edge_ray.is_colliding():
 		direction *= -1
+		_update_facing() # ensure the idle facing flips immediately on edge turn
 
 	if is_chasing and player:
 		var dx = player.global_position.x - global_position.x
 		var distance = abs(dx)
 		
 		# Move toward the player only if farther than attack_threshold
-		# Otherwise, play the idle animation
-		# Hoping to modify if I can get a mushroom sprite that has an attack animation
 		if distance > attack_threshold:
 			velocity.x = chase_speed * sign(dx)
 			direction = 1 if velocity.x > 0 else -1
-			if not is_dead:
-				anim.play("run")
-				anim.flip_h = velocity.x > 0
+			anim.play("run")
+			_update_facing() # face toward movement
 		else:
 			velocity.x = 0
-			if not is_dead:
-				anim.play("idle")	# Stop running when close to player
+			anim.play("idle")
+			_update_facing() # keep facing the last known direction toward player
 
-		# The attack mechanic so that the mushroom can deal damage to the player
+		# Attack cadence: after 0.5s within range, play a damage (hurt) animation
+		# Note: This currently uses the enemy's own "damage" clip as the attack tell.
+		# If you later add a true "attack" clip, just swap the name in _attack().
 		if player and "is_attacking" in player and not player.is_attacking:
 			player_in_range_time += delta
-			if player_in_range_time >= 0.5: 						# Attack if the player has been in range for at least .5 seconds
-				_flash_red() 				 						# Flash red to indicate attack
-				player_in_range_time = 0.0 							# Reset the attack timer
-				attack_counter += 1									# Increment the attack counter
-				if attack_counter >= 2 and "lose_life" in player:	# 2 attacks = 1 life lost
-					player.lose_life()  							# Player loses life
-					attack_counter = 0								# Reset attack counter
+			if player_in_range_time >= 0.5:
+				_attack()				# plays "damage" and locks animation until finished
+				player_in_range_time = 0.0
+				attack_counter += 1
+				if attack_counter >= 2 and "lose_life" in player:
+					player.lose_life()	# 2 attacks = 1 life lost
+					attack_counter = 0
 		else:
-			player_in_range_time = 0.0								# Reset attack timer
+			player_in_range_time = 0.0
 
 	else:
-		player_in_range_time = 0.0  		# Reset if player leaves
-		
-		# Wandering behavior if not chasing
+		# Not chasing: wander in the current direction
+		player_in_range_time = 0.0
 		velocity.x = direction * speed
-		if velocity.x != 0 and not is_dead:
+		if velocity.x != 0:
 			anim.play("run")
-			anim.flip_h = velocity.x > 0	# Correct facing for sprite facing left by default
-		elif not is_dead:
+		else:
 			anim.play("idle")
+		_update_facing() # face based on current direction/velocity
 
 	# Move and detect collisions
 	move_and_slide()
 
-	# Turn around if collided with wall or another mushroom
+	# Turn around if collided with another troll (avoid pile-ups)
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
 		var other = collision.get_collider()
-		
-		if other.is_in_group("mushroom"):
-			direction *= -1	# Mushroom flips direction if it collides with another mushroom
+		if other and other.is_in_group("troll"):
+			direction *= -1
+			_update_facing()
 			break
 
-func _flash_red():
-	"""A small function to allow the mushroom to flash red when it is going to attack"""
-	var original_color = anim.modulate
-	var tween = create_tween()
-	tween.tween_property(anim, "modulate", Color(1,0,0), 0.15)
-	tween.tween_property(anim, "modulate", original_color, 0.15)
+func _update_facing() -> void:
+	# Sprite art faces RIGHT by default.
+	# We want it to face LEFT when moving/looking left.
+	# If moving, use velocity.x; if idle, use 'direction'.
+	var look = direction
+	if abs(velocity.x) > 0.1:
+		look = 1 if velocity.x > 0 else -1
+	# flip_h = true means mirror horizontally (to face left)
+	anim.flip_h = (look < 0)
+
+func _attack() -> void:
+	'''A small function that controls the enemy's "damage" animation sequence.
+	   The is_hurting flag locks the state so other animations can't interrupt it.'''
+	if is_dead or is_hurting:
+		return
+	is_hurting = true
+	velocity.x = 0
+	anim.play("damage")				# Ensure a non-looping "damage" animation exists in SpriteFrames
+	await anim.animation_finished	# Wait until it completes so nothing else can overwrite it
+	is_hurting = false
 
 func _start_wandering():
-	'''Function used to change the wandering flag to true to allow the mushroom to roam'''
-	# Prevents wandering from starting while the mushroom is chasing
+	'''Function used to change the wandering flag to true to allow the troll to roam'''
+	# Prevents wandering from starting while the troll is chasing
 	if is_chasing or wandering:
 		return
 	wandering = true
 	_wander_loop()
 
 func _wander_loop() -> void:
-	'''Function used to actually handle the wandering mechanics of the mushroom'''
-	# Don't want the mushroom to roam if it is chasing
+	'''Function used to actually handle the wandering mechanics of the troll'''
+	# Don't want the troll to roam if it is chasing or dead
 	while not is_chasing and not is_dead:
 		# Random direction
-		direction = -1 if randi() % 2 == 0 else 1
+		direction = 1 if randi() % 2 == 0 else -1
+		_update_facing()
 
 		# Wander for random duration as specified at the beginning of the code
 		var wander_time = randf_range(wander_min_time, wander_max_time)
@@ -134,17 +154,17 @@ func _wander_loop() -> void:
 
 		# Idle
 		velocity.x = 0
-		if not is_dead:
-			anim.play("idle")
-			
+		anim.play("idle")
+		_update_facing()
+
 		# Idle for random duration as specified at the beginning of the code
 		var idle_time = randf_range(idle_min_time, idle_max_time)
 		await get_tree().create_timer(idle_time).timeout
 
-	wandering = false	# Exited loop because chasing started
+	wandering = false	# Exited loop because chasing started (or died)
 
 func _on_player_entered(body: Node):
-	'''Function used to start chse mechanics by detecting what group the entered body is in'''
+	'''Function used to start chase mechanics by detecting what group the entered body is in'''
 	var player_node = body
 	if not body is CharacterBody2D and body.get_parent() and body.get_parent() is CharacterBody2D:
 		player_node = body.get_parent()
@@ -155,9 +175,12 @@ func _on_player_entered(body: Node):
 		velocity.x = 0
 		player_in_range_time = 0.0
 		attack_counter = 0
+		# Face toward the player immediately
+		direction = 1 if (player.global_position.x - global_position.x) >= 0 else -1
+		_update_facing()
 
 func _on_player_exited(body: Node):
-	'''Resets the chasing mechanics so that the mushroom can go back to wandering'''
+	'''Resets the chasing mechanics so that the troll can go back to wandering'''
 	var player_node = body
 	if not body is CharacterBody2D and body.get_parent() and body.get_parent() is CharacterBody2D:
 		player_node = body.get_parent()
@@ -169,10 +192,8 @@ func _on_player_exited(body: Node):
 		_start_wandering()
 
 func take_damage(_player_pos: Vector2):
-	'''Function used to "kill" a mushroom, ultimately removing it from the scene tree
-	   Occurs when a player attacks (i.e. the mushroom takes damage)
-	'''
-	
+	'''Function used to "kill" a troll, ultimately removing it from the scene tree
+	   Occurs when a player attacks (i.e. the troll takes damage)'''
 	if is_dead:
 		return
 

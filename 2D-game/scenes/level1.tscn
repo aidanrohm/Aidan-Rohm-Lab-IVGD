@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cin40h5lots3b" path="res://assets/tileset/props1.png" id="7_14jow"]
 [ext_resource type="Texture2D" uid="uid://x0qeyeillse3" path="res://assets/tileset/oak_woods_tileset.png" id="8_mvsps"]
 [ext_resource type="PackedScene" uid="uid://cfk34clxvyxak" path="res://scenes/player.tscn" id="9_jvkml"]
-[ext_resource type="PackedScene" uid="uid://coeupelbn6wq4" path="res://scenes/mushroom.tscn" id="10_3w4mx"]
+[ext_resource type="PackedScene" uid="uid://coeupelbn6wq4" path="res://scenes/troll.tscn" id="10_3w4mx"]
 [ext_resource type="AudioStream" uid="uid://b44f45r8783ef" path="res://assets/music.mp3" id="11_u068y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
@@ -2817,34 +2817,34 @@ position = Vector2(30, 575)
 [node name="Mushrooms" type="Node2D" parent="."]
 
 [node name="Mushroom2" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(561, 343)
+position = Vector2(559, 336)
 
 [node name="Mushroom5" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(412, 407)
+position = Vector2(412, 401)
 
 [node name="Mushroom7" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(559, 454)
+position = Vector2(559, 448)
 
 [node name="Mushroom8" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(843, 455)
+position = Vector2(843, 449)
 
 [node name="Mushroom9" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(775, 582)
+position = Vector2(775, 576)
 
 [node name="Mushroom14" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(193, 581)
+position = Vector2(199, 576)
 
 [node name="Mushroom15" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(270, 470)
+position = Vector2(268, 464)
 
 [node name="Mushroom17" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(271, 341)
+position = Vector2(271, 337)
 
 [node name="Mushroom19" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(1109, 582)
+position = Vector2(1114, 576)
 
 [node name="Mushroom20" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(1006, 520)
+position = Vector2(1019, 512)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_u068y")
