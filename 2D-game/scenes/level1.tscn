@@ -2752,19 +2752,33 @@ offset_bottom = 69.0
 text = "Lives: 3
 "
 
-[node name="BackgroundLayer1" type="Sprite2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_u068y")
+autoplay = true
+
+[node name="Environment" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Environment"]
+motion_scale = Vector2(0.2, 0.2)
+
+[node name="BackgroundLayer1" type="Sprite2D" parent="Environment/ParallaxLayer"]
 texture_filter = 1
-position = Vector2(576.00006, 324.00003)
+position = Vector2(577.00006, 324.99994)
 scale = Vector2(3.5875, 3.5777779)
 texture = ExtResource("2_2ku1j")
 
-[node name="BackgroundLayer2" type="Sprite2D" parent="."]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Environment"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="BackgroundLayer2" type="Sprite2D" parent="Environment/ParallaxLayer2"]
 texture_filter = 1
 position = Vector2(576, 327)
 scale = Vector2(3.5875, 3.6111112)
 texture = ExtResource("3_f31uk")
 
-[node name="BackgroundLayer3" type="Sprite2D" parent="."]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Environment"]
+
+[node name="BackgroundLayer3" type="Sprite2D" parent="Environment/ParallaxLayer3"]
 texture_filter = 1
 position = Vector2(575.00006, 324)
 scale = Vector2(3.59375, 3.6)
@@ -2814,38 +2828,22 @@ layer_0/tile_data = PackedInt32Array(2424832, 0, 0, 2424834, 65536, 0, 2424835, 
 [node name="Player" parent="." instance=ExtResource("9_jvkml")]
 position = Vector2(30, 575)
 
-[node name="Mushrooms" type="Node2D" parent="."]
+[node name="Trolls" type="Node" parent="."]
 
-[node name="Mushroom2" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(559, 336)
+[node name="Troll" parent="Trolls" instance=ExtResource("10_3w4mx")]
+position = Vector2(118, 517)
 
-[node name="Mushroom5" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(412, 401)
+[node name="Troll2" parent="Trolls" instance=ExtResource("10_3w4mx")]
+position = Vector2(199, 581)
 
-[node name="Mushroom7" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(559, 448)
+[node name="Troll3" parent="Trolls" instance=ExtResource("10_3w4mx")]
+position = Vector2(274, 341)
 
-[node name="Mushroom8" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(843, 449)
+[node name="Troll4" parent="Trolls" instance=ExtResource("10_3w4mx")]
+position = Vector2(549, 452)
 
-[node name="Mushroom9" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(775, 576)
+[node name="Troll5" parent="Trolls" instance=ExtResource("10_3w4mx")]
+position = Vector2(844, 451)
 
-[node name="Mushroom14" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(199, 576)
-
-[node name="Mushroom15" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(268, 464)
-
-[node name="Mushroom17" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(271, 337)
-
-[node name="Mushroom19" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(1114, 576)
-
-[node name="Mushroom20" parent="Mushrooms" instance=ExtResource("10_3w4mx")]
-position = Vector2(1019, 512)
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_u068y")
-autoplay = true
+[node name="Troll6" parent="Trolls" instance=ExtResource("10_3w4mx")]
+position = Vector2(774, 578)

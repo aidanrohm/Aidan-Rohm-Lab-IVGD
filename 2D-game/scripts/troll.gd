@@ -4,8 +4,8 @@ extends CharacterBody2D
 # ---------- PLACED HERE FOR EASE OF MODIFICATION --------- #
 @export var speed: float = 50.0				# Wandering speed
 @export var chase_speed: float = 100.0		# Speed when chasing player
-@export var wander_min_time: float = 0.5	# Min time for wandering on one execute
-@export var wander_max_time: float = 2.0	# Max time for wandering on one execute
+@export var wander_min_time: float = 0.5		# Min time for wandering on one execute
+@export var wander_max_time: float = 2.0		# Max time for wandering on one execute
 @export var idle_min_time: float = 0.5		# Min time for idling (time after execute of wander)
 @export var idle_max_time: float = 1.5		# Max time for idling (time after execute of wander)
 @export var attack_threshold: float = 50.0	# Distance to stop running toward player
@@ -194,6 +194,8 @@ func _on_player_exited(body: Node):
 func take_damage(_player_pos: Vector2):
 	'''Function used to "kill" a troll, ultimately removing it from the scene tree
 	   Occurs when a player attacks (i.e. the troll takes damage)'''
+	var trolls = get_tree().get_nodes_in_group("troll")
+	
 	if is_dead:
 		return
 
@@ -206,4 +208,7 @@ func take_damage(_player_pos: Vector2):
 	anim.play("death")
 	$DeathSound.play()
 	await anim.animation_finished
+	var numtrolls = trolls.size()
+	numtrolls -= 1
+	print(numtrolls)
 	queue_free()
