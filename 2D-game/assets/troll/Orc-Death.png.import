@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3p7gem07a4y8"
-path="res://.godot/imported/Mushroom-Stun.png-73477a8ea67c5915c582c43c1a8d5f82.ctex"
+uid="uid://bax4gki2tw4x1"
+path="res://.godot/imported/Orc-Death.png-256fd738d1ec6701e9580d97f44fd215.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mushroom/Mushroom-Stun.png"
-dest_files=["res://.godot/imported/Mushroom-Stun.png-73477a8ea67c5915c582c43c1a8d5f82.ctex"]
+source_file="res://assets/troll/Orc-Death.png"
+dest_files=["res://.godot/imported/Orc-Death.png-256fd738d1ec6701e9580d97f44fd215.ctex"]
 
 [params]
 

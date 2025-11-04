@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c45egacdush3p"
-path="res://.godot/imported/Mushroom-Hit.png-b3b0871bef7701ed87275aa49edaa67b.ctex"
+uid="uid://cvxwdltdlpmcw"
+path="res://.godot/imported/Orc-Idle.png-4577d6ebc1750f737788f9d32de87b21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mushroom/Mushroom-Hit.png"
-dest_files=["res://.godot/imported/Mushroom-Hit.png-b3b0871bef7701ed87275aa49edaa67b.ctex"]
+source_file="res://assets/troll/Orc-Idle.png"
+dest_files=["res://.godot/imported/Orc-Idle.png-4577d6ebc1750f737788f9d32de87b21.ctex"]
 
 [params]
 

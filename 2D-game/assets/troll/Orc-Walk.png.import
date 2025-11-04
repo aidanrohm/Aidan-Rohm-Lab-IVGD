@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvxwdltdlpmcw"
-path="res://.godot/imported/Orc-Idle.png-c720f01d7d8f316775a52fbadbe2d435.ctex"
+uid="uid://b3f5s5tj68gwj"
+path="res://.godot/imported/Orc-Walk.png-3cf571b7b7de18345c82e4599532a85c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Orc-Idle.png"
-dest_files=["res://.godot/imported/Orc-Idle.png-c720f01d7d8f316775a52fbadbe2d435.ctex"]
+source_file="res://assets/troll/Orc-Walk.png"
+dest_files=["res://.godot/imported/Orc-Walk.png-3cf571b7b7de18345c82e4599532a85c.ctex"]
 
 [params]
 
