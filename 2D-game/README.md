@@ -38,4 +38,30 @@ MOVEMENT GUIDE:
 	
 --> The ABOVE is documentation from Lab 3 <--
 --> The 2D game was started as a duplicate of Lab 3 and will be expanding on the concepts and structures from this lab <--
+
+Here is a brief outline of some of the systems that I implemented:
+	1. Player movement (see above)
+	2. Damage/death to player
+		a. A player can fall to its death
+		b. A player can be attacked by a troll
+		c. A player can be pushed to its death by a flying eye
+		d. NOTE: previous development suggested that idling for too long would cause death. While I like this idea, I did not have enough time to adequately implement it, therefore it was left out
+	3. Attacking (see above w/ enter key)
+		The player must kill all enemies in order to continue on to the next level. Killing enemies does not improve score
+		The two enemy types are the trolls (previously mushrooms) and eyes (which do not have an attack, but can push you)
+	4. Scoring
+		Done through the collection of coins, a player's score can be improved from "run" to "run"
+		Collecting coins is not detrimental to development of the game, but adds an extra layer of complexity
+	5. Checkpoints
+		While checkpoints are not abundant in my game, there is one available. The checkpoint (when triggered) gives the player an additional life to play with , which can help with level completion
+
+General Notes:
+	1. Because of the way that I structured the project, and really the lack of global controls, there are three levels and subsequently three player scenes.
+		While I ultimately would have liked to have had this a bit more fluid from a management persepective, I think it gives me something to work on in the event that I elect to continue developing the game
+		as my capstone project
+	3. I realize that the play time was meant to take at least 3 minutes, and I really did try to make the average run take that long. Unfortunately I feel like my game is easier to beat than that. I am thinking that for
+		future development, I make the loss of all lives a bit more detrimental to the progress made (i.e. restart the entire game and lose all progress). My sincere apologies for not having a more flushed out game at this
+		point. As we have discussed in class, game design is iterative and to me, I worked on a lot of other structures in this game. Hopefully a short run time can be overlooked.
+
+I HOPE YOU ENJOY THE GAME AND THANK YOU FOR PLAYING!
 	
