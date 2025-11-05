@@ -2951,7 +2951,7 @@ libraries = {
 }
 
 [node name="Player" parent="." instance=ExtResource("8_g8vcy")]
-position = Vector2(30, 575)
+position = Vector2(218, 549)
 script = ExtResource("9_8g4ke")
 
 [node name="Trolls" type="Node" parent="."]

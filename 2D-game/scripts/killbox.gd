@@ -1,41 +1,33 @@
 extends Area2D
-# Killbox: if the player falls, they lose a life and respawn.
-# Enemies (trolls) that fall are removed from the scene.
+# If the player falls off the map, they lose a life --> the need for a killbox to reset the player's position.
 
+# Uses a specific respawn point node in order to put the player back to a specific point
+# (Kept for future use; the player now owns all respawn logic.)
 @export var respawn_point: NodePath
+var player: CharacterBody2D
 
-var _spawn_point: Node2D = null
+func _ready():
+	connect("body_entered", Callable(self, "_on_body_entered"))
 
-func _ready() -> void:
-	# If you didn't connect in the editor:
-	body_entered.connect(_on_body_entered)
-	# Cache optional respawn point node
-	if respawn_point != NodePath(""):
-		var n := get_node(respawn_point)
-		if n is Node2D:
-			_spawn_point = n
+func _on_body_entered(body):
+	# The player's group is detected in order to determine where to send it
+	# Not everything is meant to be respawned if it falls off the map
+	if body.is_in_group("player"):
+		# Trigger life loss first. Do NOT call respawn here—
+		# the player script handles that safely and idempotently.
+		body.lose_life()
 
-func _on_body_entered(body: Node) -> void:
-	# Resolve the actual character root in case a child (e.g., CollisionShape2D) entered
-	var who: Node = body
-	if not (who is CharacterBody2D) and body.get_parent() and (body.get_parent() is CharacterBody2D):
-		who = body.get_parent()
+	elif body.is_in_group("enemy"):
+		# The enemy should remove itself from the scene tree if it falls off the platform to its death
+		# This will be important for future development
+		body.queue_free()
 
-	# PLAYER: lose a life and respawn
-	if who.is_in_group("player"):
-		if "lose_life" in who:
-			who.lose_life()
-
-		# Prefer the player's own respawn logic (checkpoints etc.)
-		if "respawn_at_checkpoint" in who:
-			who.respawn_at_checkpoint()
-		elif _spawn_point:
-			# Fallback to explicit respawn point
-			who.global_position = _spawn_point.global_position
-			# Reset velocity if the player exposes it (CharacterBody2D does)
-			if "velocity" in who:
-				who.velocity = Vector2.ZERO
-
-	# TROLL: just remove it
-	elif who.is_in_group("troll"):
-		who.queue_free()
+	# NOTE:
+	# We no longer reposition the player here. If you want to use a fixed spawn point
+	# (ignoring checkpoints), you can call a method on the player that sets its checkpoint:
+	#
+	#   if body.is_in_group("player") and respawn_point:
+	#       var spawn := get_node(respawn_point)
+	#       body.set_checkpoint(spawn.global_position)
+	#
+	# The actual respawn teleport must still be done by the player via lose_life()/respawn_at_checkpoint().
