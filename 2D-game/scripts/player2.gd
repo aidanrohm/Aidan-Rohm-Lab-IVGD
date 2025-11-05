@@ -11,7 +11,7 @@ const JUMP_VELOCITY = -400.0
 
 var is_attacking: bool = false 								# Flag to track if attack animation is playing
 var can_attack: bool = false 								# Flag to allow continuous attack while overlapping
-var overlapping_trolls: Array = [] 						# List of trolls currently inside attack range
+var overlapping_mushrooms: Array = [] 						# List of mushrooms currently inside attack range
 var lives: int = 3 											# Player starts with 3 lives
 var checkpoint_position: Vector2 = Vector2(30, 575) 		# Default spawn position
 var idle_timer: float = 0.0
@@ -21,7 +21,7 @@ func _ready():
 	# Connect to detect when animations finish
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	
-	# Connect the attack area signals to track overlapping trolls
+	# Connect the attack area signals to track overlapping mushrooms
 	attack_area.area_entered.connect(_on_attack_area_area_entered)
 	attack_area.area_exited.connect(_on_attack_area_area_exited)
 	
@@ -71,11 +71,11 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.play("attack")
 		$AttackSound.play()
 	
-	# Apply attack to all overlapping trolls if attack is active
+	# Apply attack to all overlapping mushrooms if attack is active
 	if is_attacking and can_attack:
-		for troll in overlapping_trolls:
-			if "take_damage" in troll:
-				troll.take_damage(global_position)
+		for mushroom in overlapping_mushrooms:
+			if "take_damage" in mushroom:
+				mushroom.take_damage(global_position)
 
 	# Animation controller
 	if is_attacking:
@@ -101,14 +101,14 @@ func _on_animation_finished():
 		can_attack = false # Stop applying attacks after animation ends
 
 func _on_attack_area_area_entered(area: Area2D):
-	# Track trolls entering attack range
-	if area.is_in_group("troll_hitbox"):				# troll hitbox is in the group
-		overlapping_trolls.append(area.get_parent()) # get the troll node
+	# Track mushrooms entering attack range
+	if area.is_in_group("mushroom_hitbox"):				# Mushroom hitbox is in the group
+		overlapping_mushrooms.append(area.get_parent()) # get the mushroom node
 
 func _on_attack_area_area_exited(area: Area2D):
-	# Remove trolls leaving attack range
-	if area.is_in_group("troll_hitbox"):
-		overlapping_trolls.erase(area.get_parent())
+	# Remove mushrooms leaving attack range
+	if area.is_in_group("mushroom_hitbox"):
+		overlapping_mushrooms.erase(area.get_parent())
 
 # Called when player touches the killbox or idle damage triggers
 func lose_life():
