@@ -14,7 +14,7 @@ func _process(_delta):
 	_check_mushroom_count()
 
 func _check_mushroom_count():
-	var mushrooms = get_tree().get_nodes_in_group("mushroom")
+	var mushrooms = get_tree().get_nodes_in_group("troll")
 	if mushrooms.size() == 0:
 		_load_next_level()
 

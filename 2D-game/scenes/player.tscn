@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wfrxvmi0yo6y" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://hf3kbnnwkpwu" path="res://assets/green/char_green_1.png" id="2_qhqgy"]
-[ext_resource type="AudioStream" uid="uid://c3c85045ha3xq" path="res://assets/woosh.mp3" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://c3c85045ha3xq" path="res://assets/music/woosh.mp3" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tefeu"]
 radius = 11.0

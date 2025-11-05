@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://xu60cds63qac"]
 
 [ext_resource type="Script" uid="uid://buqlg7i7awub6" path="res://scripts/how_to_play.gd" id="1_hsfox"]
-[ext_resource type="AudioStream" uid="uid://dnsu4ac514rj6" path="res://assets/howtomusic.mp3" id="2_25cri"]
+[ext_resource type="AudioStream" uid="uid://blx24bevlyah" path="res://assets/music/howtomusic.mp3" id="2_25cri"]
 
 [node name="HowToPlay" type="Control"]
 layout_mode = 3

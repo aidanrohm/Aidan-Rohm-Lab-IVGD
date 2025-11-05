@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://c7t0701lcllsd"]
 
 [ext_resource type="Script" uid="uid://dd5fokewdmeof" path="res://scripts/checkpoint.gd" id="1_checkpoint"]
-[ext_resource type="Texture2D" uid="uid://cb2n75h7w2oyo" path="res://assets/flag animation.png" id="2_ywqth"]
-[ext_resource type="AudioStream" uid="uid://c62l716w1ag11" path="res://assets/checkpoint.mp3" id="3_vsimk"]
+[ext_resource type="Texture2D" uid="uid://cb2n75h7w2oyo" path="res://assets/flag/flag animation.png" id="2_ywqth"]
+[ext_resource type="AudioStream" uid="uid://c62l716w1ag11" path="res://assets/music/checkpoint.mp3" id="3_vsimk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vsimk"]
 height = 56.0
