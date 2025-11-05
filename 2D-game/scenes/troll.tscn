@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://coeupelbn6wq4"]
 
-[ext_resource type="Script" path="res://scripts/mushroom.gd" id="1_lnrix"]
+[ext_resource type="Script" uid="uid://4yrgf41lyetm" path="res://scripts/troll.gd" id="1_lnrix"]
 [ext_resource type="Texture2D" uid="uid://crldtkaqsfbu2" path="res://assets/troll/Orc-Attack01.png" id="2_jekqn"]
 [ext_resource type="Texture2D" uid="uid://bax4gki2tw4x1" path="res://assets/troll/Orc-Death.png" id="3_6rddh"]
 [ext_resource type="Texture2D" uid="uid://cvxwdltdlpmcw" path="res://assets/troll/Orc-Idle.png" id="4_2v15d"]
@@ -132,7 +132,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ne4m3")
 }],
 "loop": false,
-"name": &"damage",
+"name": &"attack",
 "speed": 24.0
 }, {
 "frames": [{
@@ -227,11 +227,10 @@ shape = SubResource("CircleShape2D_6c3h1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-0.9999924, 2)
+position = Vector2(-1, 3)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_chjal")
-animation = &"damage"
+animation = &"attack"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(0, 2)
 stream = ExtResource("6_jekqn")

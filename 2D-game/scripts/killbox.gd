@@ -17,7 +17,7 @@ func _on_body_entered(body):
 	
 	# The mushroom should remove itself from the scene tree if it falls off the platform to its death
 	# This will be important for future development
-	if body.is_in_group("enemy"):
+	if body.is_in_group("enemy") || body.is_in_group("troll"):
 		queue_free()
 
 		# Use checkpoint respawn if available, otherwise use respawn point

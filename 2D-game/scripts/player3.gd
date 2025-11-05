@@ -6,32 +6,32 @@ const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var attack_area: Area2D = $AttackRange  			# The new attack range Area2D
-@onready var lives_label = get_tree().get_root().get_node("Level1/UI/LivesLabel")
+@onready var attack_area: Area2D = $AttackRange			# The new attack range Area2D
+@onready var lives_label = get_tree().get_root().get_node("Level3/UI/VBoxContainer/LivesLabel")
 
-var is_attacking: bool = false 								# Flag to track if attack animation is playing
-var can_attack: bool = false 								# Flag to allow continuous attack while overlapping
-var overlapping_trolls: Array = [] 						# List of trolls currently inside attack range
-var lives: int = 3 											# Player starts with 3 lives
-var checkpoint_position: Vector2 = Vector2(30, 575) 		# Default spawn position
-var idle_timer: float = 0.0
-const IDLE_DAMAGE_THRESHOLD: float = 5.0 					# Seconds the player can idle at spawn without moving
+var is_attacking: bool = false								# Flag to track if attack animation is playing
+var can_attack: bool = false								# Flag to allow continuous attack while overlapping
+var overlapping_enemies: Array = []							# List of enemies currently inside attack range
+var lives: int = 3											# Player starts with 3 lives
+var checkpoint_position: Vector2 = Vector2(30, 575)			# Default spawn position
+
+# Groups that count as enemy hitboxes for melee attacks
+# New enemy type's hitbox must be included here in order for the player to respawn
+const ENEMY_HITBOX_GROUPS := ["troll_hitbox", "eye_hitbox"]
 
 func _ready():
 	# Connect to detect when animations finish
 	animated_sprite.animation_finished.connect(_on_animation_finished)
-	
-	# Connect the attack area signals to track overlapping trolls
+
+	# Connect the attack area signals to track overlapping enemies
 	attack_area.area_entered.connect(_on_attack_area_area_entered)
 	attack_area.area_exited.connect(_on_attack_area_area_exited)
-	
+
 	# Initialize lives label on scene start
 	_update_lives_label()
 
 func _physics_process(delta: float) -> void:
-	'''Basic movement and system development
-	   The player will take damage/lose a life if they idle for too long
-	'''
+	'''Basic movement and system development'''
 	# Apply gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta # Use delta to smooth the movement
@@ -42,24 +42,14 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.play("jump") # Using the jump animation
 
 	# Horizontal movement
-	var direction := Input.get_axis("ui_left", "ui_right") 	# Direction based on pressed keys
-	if not is_attacking: 									# Prevent movement during attack
+	var direction := Input.get_axis("ui_left", "ui_right")	# Direction based on pressed keys
+	if not is_attacking:									# Prevent movement during attack
 		if direction != 0:
-			velocity.x = direction * SPEED 					# Set horizontal speed
+			velocity.x = direction * SPEED					# Set horizontal speed
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED) 	# Graceful slowdown
+			velocity.x = move_toward(velocity.x, 0, SPEED)	# Graceful slowdown
 	else:
-		velocity.x = 0 										# Stop horizontal movement while attacking
-
-	# Idle damage handling
-	if velocity.x == 0 and velocity.y == 0:
-		idle_timer += delta
-		# Only trigger idle damage after 3 seconds from respawn
-		if idle_timer >= IDLE_DAMAGE_THRESHOLD:
-			lose_life()
-			idle_timer = 0.0
-	else:
-		idle_timer = 0.0 # Reset timer if player moves
+		velocity.x = 0										# Stop horizontal movement while attacking
 
 	# Move the player
 	move_and_slide()
@@ -70,12 +60,16 @@ func _physics_process(delta: float) -> void:
 		can_attack = true # Allow attacks to trigger continuously while overlapping
 		animated_sprite.play("attack")
 		$AttackSound.play()
-	
-	# Apply attack to all overlapping trolls if attack is active
+
+	# Apply attack to all overlapping enemies (trolls or eyes) if attack is active
 	if is_attacking and can_attack:
-		for troll in overlapping_trolls:
-			if "take_damage" in troll:
-				troll.take_damage(global_position)
+		# iterate over a copy in case enemies despawn during the loop
+		for enemy in overlapping_enemies.duplicate():
+			if is_instance_valid(enemy):
+				if "take_damage" in enemy:
+					enemy.take_damage(global_position)
+			else:
+				overlapping_enemies.erase(enemy)
 
 	# Animation controller
 	if is_attacking:
@@ -86,9 +80,9 @@ func _physics_process(delta: float) -> void:
 		if animated_sprite.animation != "jump":
 			animated_sprite.play("jump")
 	elif direction == 0:
-		animated_sprite.play("idle") 	# Idle animation trigger
+		animated_sprite.play("idle")	# Idle animation trigger
 	else:
-		animated_sprite.play("run") 	# Run animation trigger
+		animated_sprite.play("run")		# Run animation trigger
 
 	# Flip the sprite based on direction of movement
 	if direction != 0:
@@ -101,16 +95,27 @@ func _on_animation_finished():
 		can_attack = false # Stop applying attacks after animation ends
 
 func _on_attack_area_area_entered(area: Area2D):
-	# Track trolls entering attack range
-	if area.is_in_group("troll_hitbox"):				# troll hitbox is in the group
-		overlapping_trolls.append(area.get_parent()) # get the troll node
+	# Track enemies (trolls or eyes) entering attack range via their hitbox groups
+	if _is_enemy_hitbox(area):
+		var enemy := area.get_parent()	# hitbox's parent should be the enemy node
+		if enemy != null and not overlapping_enemies.has(enemy):
+			overlapping_enemies.append(enemy)
 
 func _on_attack_area_area_exited(area: Area2D):
-	# Remove trolls leaving attack range
-	if area.is_in_group("troll_hitbox"):
-		overlapping_trolls.erase(area.get_parent())
+	# Remove enemies leaving attack range
+	if _is_enemy_hitbox(area):
+		var enemy := area.get_parent()
+		if enemy != null:
+			overlapping_enemies.erase(enemy)
 
-# Called when player touches the killbox or idle damage triggers
+func _is_enemy_hitbox(area: Area2D) -> bool:
+	# Returns true if the area belongs to any of our enemy hitbox groups
+	for g in ENEMY_HITBOX_GROUPS:
+		if area.is_in_group(g):
+			return true
+	return false
+
+# Called when player loses a life (e.g., killbox, enemy hit, etc.)
 func lose_life():
 	lives -= 1
 	_update_lives_label()
@@ -154,13 +159,10 @@ func set_checkpoint(checkpoint_pos: Vector2):
 func respawn_at_checkpoint():
 	global_position = checkpoint_position
 	velocity = Vector2.ZERO
-	idle_timer = 0.0 # Allow player to idle without penalty for 3s
 	print("Player respawned at checkpoint: ", checkpoint_position)
-
-	# Flash red and grow/shrink effect, for idling too long
 	_flash_red_and_scale_effect()
 
-# Visualizing the respawn effect so the player knows they did something wrong
+# Visualizing the respawn effect (kept for other damage sources if needed)
 func _flash_red_and_scale_effect():
 	var original_color = animated_sprite.modulate
 	var original_scale = scale

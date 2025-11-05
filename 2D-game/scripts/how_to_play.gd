@@ -1,5 +1,6 @@
 extends Control
-
+# Basic script used to control the how_to_play screen
+# Includes functionality for the back button
 @onready var back_button: Button = $BackButton
 
 func _ready():

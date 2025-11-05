@@ -12,6 +12,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hsfox")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_25cri")
+volume_db = -3.949
+autoplay = true
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 31.0
+text = "Back
+"
+
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -37,22 +49,4 @@ grow_vertical = 2
 text = "Controls:
 		- Move: W / A / S / D
 		- Jump: Spacebar / W
-		- Attack: Enter
-
-Objective:
-		- Eliminate all mushrooms to advance to the next level
-
-WARNING: 
-		- Try not to stay still!"
-
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Back
-"
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_25cri")
-volume_db = -3.949
-autoplay = true
+		- Attack: Enter"

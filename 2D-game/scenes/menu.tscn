@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci15ir0in351u"]
+[gd_scene load_steps=4 format=3 uid="uid://ci15ir0in351u"]
 
 [ext_resource type="Script" uid="uid://v55kd8wr57xu" path="res://scripts/menu.gd" id="1_yqeox"]
 [ext_resource type="AudioStream" uid="uid://cj2fth557vcrv" path="res://assets/music/menumusic.mp3" id="2_vjb58"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vjb58"]
+font_size = 40
+shadow_size = 4
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -40,6 +44,7 @@ grow_horizontal = 2
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Sporeshift"
+label_settings = SubResource("LabelSettings_vjb58")
 horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]

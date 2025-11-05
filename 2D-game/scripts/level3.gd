@@ -20,4 +20,4 @@ func _check_troll_count():
 func _load_next_level():
 	# Occurs when all trolls are dead
 	print("All trolls defeated! Loading level 2...")
-	get_tree().change_scene_to_file("res://scenes/level2.tscn")
+	get_tree().change_scene_to_file("res://scenes/Victory.tscn")

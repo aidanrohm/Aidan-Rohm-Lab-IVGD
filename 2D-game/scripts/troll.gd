@@ -21,6 +21,7 @@ var player: Node2D = null				# Stores a reference so the troll can chase the pla
 var direction: int = 1					# 1 = right, -1 = left
 var is_dead: bool = false				# Flag for death state
 var is_hurting: bool = false			# Flag to lock animation/logic while "damage" is playing
+var death_lock: bool = false			# Prevents multiple simultaneous death triggers
 var attack_counter: int = 0				# Tracks number of attacks made on player
 var player_in_range_time: float = 0.0	# Timer for player being in range
 
@@ -57,7 +58,7 @@ func _physics_process(delta):
 	# Edge detection: if no platform ahead, flip direction
 	if not edge_ray.is_colliding():
 		direction *= -1
-		_update_facing() # ensure the idle facing flips immediately on edge turn
+		_update_facing() # Ensures the idle facing flips immediately on edge turn
 
 	if is_chasing and player:
 		var dx = player.global_position.x - global_position.x
@@ -68,19 +69,17 @@ func _physics_process(delta):
 			velocity.x = chase_speed * sign(dx)
 			direction = 1 if velocity.x > 0 else -1
 			anim.play("run")
-			_update_facing() # face toward movement
+			_update_facing() # Face toward movement
 		else:
 			velocity.x = 0
 			anim.play("idle")
-			_update_facing() # keep facing the last known direction toward player
+			_update_facing() # Keep facing the last known direction toward player
 
 		# Attack cadence: after 0.5s within range, play a damage (hurt) animation
-		# Note: This currently uses the enemy's own "damage" clip as the attack tell.
-		# If you later add a true "attack" clip, just swap the name in _attack().
 		if player and "is_attacking" in player and not player.is_attacking:
 			player_in_range_time += delta
 			if player_in_range_time >= 0.5:
-				_attack()				# plays "damage" and locks animation until finished
+				_attack()				# plays "attack" animation with lock
 				player_in_range_time = 0.0
 				attack_counter += 1
 				if attack_counter >= 2 and "lose_life" in player:
@@ -97,12 +96,12 @@ func _physics_process(delta):
 			anim.play("run")
 		else:
 			anim.play("idle")
-		_update_facing() # face based on current direction/velocity
+		_update_facing() # Face based on current direction/velocity
 
 	# Move and detect collisions
 	move_and_slide()
 
-	# Turn around if collided with another troll (avoid pile-ups)
+	# Turn around if collided with another troll (avoid pile-ups), not currently needed with how the level is designed
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
 		var other = collision.get_collider()
@@ -112,59 +111,50 @@ func _physics_process(delta):
 			break
 
 func _update_facing() -> void:
-	# Sprite art faces RIGHT by default.
-	# We want it to face LEFT when moving/looking left.
-	# If moving, use velocity.x; if idle, use 'direction'.
+	# Sprite art faces RIGHT by default
+	# We want it to face LEFT when moving/looking left
 	var look = direction
 	if abs(velocity.x) > 0.1:
 		look = 1 if velocity.x > 0 else -1
-	# flip_h = true means mirror horizontally (to face left)
 	anim.flip_h = (look < 0)
 
 func _attack() -> void:
-	'''A small function that controls the enemy's "damage" animation sequence.
-	   The is_hurting flag locks the state so other animations can't interrupt it.'''
+	'''Controls the enemy's "attack" animation and locks state until finished.'''
 	if is_dead or is_hurting:
 		return
 	is_hurting = true
 	velocity.x = 0
-	anim.play("damage")				# Ensure a non-looping "damage" animation exists in SpriteFrames
-	await anim.animation_finished	# Wait until it completes so nothing else can overwrite it
+	anim.play("attack")				
+	await wait_for_animation(anim, "attack")
 	is_hurting = false
 
 func _start_wandering():
-	'''Function used to change the wandering flag to true to allow the troll to roam'''
-	# Prevents wandering from starting while the troll is chasing
+	# Function to return the troll to a wandering state
 	if is_chasing or wandering:
 		return
 	wandering = true
 	_wander_loop()
 
 func _wander_loop() -> void:
-	'''Function used to actually handle the wandering mechanics of the troll'''
-	# Don't want the troll to roam if it is chasing or dead
+	# Function that is actually used to wander
 	while not is_chasing and not is_dead:
-		# Random direction
 		direction = 1 if randi() % 2 == 0 else -1
 		_update_facing()
 
-		# Wander for random duration as specified at the beginning of the code
 		var wander_time = randf_range(wander_min_time, wander_max_time)
 		await get_tree().create_timer(wander_time).timeout
 
-		# Idle
 		velocity.x = 0
 		anim.play("idle")
 		_update_facing()
 
-		# Idle for random duration as specified at the beginning of the code
 		var idle_time = randf_range(idle_min_time, idle_max_time)
 		await get_tree().create_timer(idle_time).timeout
 
-	wandering = false	# Exited loop because chasing started (or died)
+	wandering = false
 
 func _on_player_entered(body: Node):
-	'''Function used to start chase mechanics by detecting what group the entered body is in'''
+	# Function used for chasing mechanics
 	var player_node = body
 	if not body is CharacterBody2D and body.get_parent() and body.get_parent() is CharacterBody2D:
 		player_node = body.get_parent()
@@ -175,12 +165,11 @@ func _on_player_entered(body: Node):
 		velocity.x = 0
 		player_in_range_time = 0.0
 		attack_counter = 0
-		# Face toward the player immediately
 		direction = 1 if (player.global_position.x - global_position.x) >= 0 else -1
 		_update_facing()
 
 func _on_player_exited(body: Node):
-	'''Resets the chasing mechanics so that the troll can go back to wandering'''
+	# Function used to return the troll to a wander state if the player is no longer detectable
 	var player_node = body
 	if not body is CharacterBody2D and body.get_parent() and body.get_parent() is CharacterBody2D:
 		player_node = body.get_parent()
@@ -192,18 +181,35 @@ func _on_player_exited(body: Node):
 		_start_wandering()
 
 func take_damage(_player_pos: Vector2):
-	'''Function used to "kill" a troll, ultimately removing it from the scene tree
-	   Occurs when a player attacks (i.e. the troll takes damage)'''
-	if is_dead:
+	'''Kill the troll and remove it from the scene tree after the death animation completes.'''
+	if is_dead or death_lock:
 		return
-
 	is_dead = true
+	death_lock = true
+
 	collision_layer = 0
 	collision_mask = 0
-	detection_area.monitoring = false
+	if is_instance_valid(detection_area):
+		detection_area.set_deferred("monitoring", false)
 	velocity = Vector2.ZERO
 
 	anim.play("death")
 	$DeathSound.play()
-	await anim.animation_finished
-	queue_free()
+	await wait_for_animation(anim, "death")
+	
+	# Drop group immediately so level count reflects this kill
+	if is_in_group("troll"):
+		remove_from_group("troll")
+	call_deferred("queue_free")
+
+
+# --- Helper function to reliably wait for animation completion --- #
+# Needed this because for some reason the await animation completion function was not always guaranteeing completion
+func wait_for_animation(sprite: AnimatedSprite2D, animation_name: String) -> void:
+	if not sprite.sprite_frames.has_animation(animation_name):
+		return
+	if sprite.sprite_frames.get_animation_loop(animation_name) == false:
+		await sprite.animation_finished
+	else:
+		var anim_length = sprite.sprite_frames.get_frame_count(animation_name) / sprite.sprite_frames.get_animation_speed(animation_name)
+		await get_tree().create_timer(anim_length, false).timeout

@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://ctjrxihu7dqsg"]
+[gd_scene load_steps=28 format=3 uid="uid://ctjrxihu7dqsg"]
 
 [ext_resource type="Script" uid="uid://dr2fte5iap1mp" path="res://scripts/level2.gd" id="1_76toy"]
 [ext_resource type="Texture2D" uid="uid://dq44pogu13a01" path="res://assets/background/background_layer_1.png" id="1_bo4dx"]
 [ext_resource type="Texture2D" uid="uid://bm4bk5gy15e5g" path="res://assets/background/background_layer_2.png" id="2_76toy"]
 [ext_resource type="Texture2D" uid="uid://cny3q8vkdu65y" path="res://assets/background/background_layer_3.png" id="3_8g4ke"]
 [ext_resource type="Script" uid="uid://b82n13jqrwxm8" path="res://scripts/killbox.gd" id="4_56gwk"]
+[ext_resource type="Script" uid="uid://dm8idg4dvmgfh" path="res://scripts/score.gd" id="5_cleqw"]
 [ext_resource type="PackedScene" uid="uid://c7t0701lcllsd" path="res://scenes/checkpoint.tscn" id="5_ve5ok"]
 [ext_resource type="Texture2D" uid="uid://cin40h5lots3b" path="res://assets/tileset/props1.png" id="6_cleqw"]
 [ext_resource type="Texture2D" uid="uid://x0qeyeillse3" path="res://assets/tileset/oak_woods_tileset.png" id="7_wvb8j"]
@@ -12,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dai7bdb7jkidu" path="res://scripts/player2.gd" id="9_8g4ke"]
 [ext_resource type="PackedScene" uid="uid://coeupelbn6wq4" path="res://scenes/troll.tscn" id="9_cqal4"]
 [ext_resource type="AudioStream" uid="uid://b44f45r8783ef" path="res://assets/music/music.mp3" id="10_o3sye"]
+[ext_resource type="PackedScene" uid="uid://bim7dh76n00s0" path="res://scenes/coin.tscn" id="15_cleqw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
 size = Vector2(1192, 18)
@@ -2743,44 +2745,6 @@ sources/0 = SubResource("TileSetAtlasSource_8g4ke")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56gwk"]
 size = Vector2(60, 12.5)
 
-[sub_resource type="Animation" id="Animation_ve5ok"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(572, -270)]
-}
-
-[sub_resource type="Animation" id="Animation_56gwk"]
-resource_name = "move"
-length = 8.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(572, -270), Vector2(-45, -270)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cleqw"]
-_data = {
-&"RESET": SubResource("Animation_ve5ok"),
-&"move": SubResource("Animation_56gwk")
-}
-
 [sub_resource type="Animation" id="Animation_8g4ke"]
 length = 0.001
 tracks/0/type = "value"
@@ -2819,36 +2783,103 @@ _data = {
 &"move": SubResource("Animation_76toy")
 }
 
+[sub_resource type="Animation" id="Animation_ve5ok"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(572, -270)]
+}
+
+[sub_resource type="Animation" id="Animation_56gwk"]
+resource_name = "move"
+length = 8.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(572, -270), Vector2(-45, -270)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cleqw"]
+_data = {
+&"RESET": SubResource("Animation_ve5ok"),
+&"move": SubResource("Animation_56gwk")
+}
+
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_76toy")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="Parallax2D" type="ParallaxBackground" parent="."]
 
-[node name="LivesLabel" type="Label" parent="UI"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 77.0
-offset_bottom = 69.0
-text = "Lives: 3
-"
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Parallax2D"]
+motion_scale = Vector2(0.2, 0.2)
 
-[node name="BackgroundLayer1" type="Sprite2D" parent="."]
+[node name="BackgroundLayer1" type="Sprite2D" parent="Parallax2D/ParallaxLayer"]
 texture_filter = 1
 position = Vector2(576.00006, 324.00003)
 scale = Vector2(3.5875, 3.5777779)
 texture = ExtResource("1_bo4dx")
 
-[node name="BackgroundLayer2" type="Sprite2D" parent="."]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Parallax2D"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="BackgroundLayer2" type="Sprite2D" parent="Parallax2D/ParallaxLayer2"]
 texture_filter = 1
 position = Vector2(576, 327)
 scale = Vector2(3.5875, 3.6111112)
 texture = ExtResource("2_76toy")
 
-[node name="BackgroundLayer3" type="Sprite2D" parent="."]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Parallax2D"]
+motion_scale = Vector2(0.9, 0.9)
+
+[node name="BackgroundLayer3" type="Sprite2D" parent="Parallax2D/ParallaxLayer3"]
 texture_filter = 1
-position = Vector2(577, 324)
+position = Vector2(575.00006, 324)
 scale = Vector2(3.59375, 3.6)
 texture = ExtResource("3_8g4ke")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+offset_left = 22.0
+offset_top = 1.0
+offset_right = 79.0
+offset_bottom = 77.0
+metadata/_edit_group_ = true
+
+[node name="LivesLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Lives: 3
+"
+
+[node name="Score" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("5_cleqw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_o3sye")
+autoplay = true
+
+[node name="RespawnPoint" type="Node2D" parent="."]
+position = Vector2(30, 575)
+
+[node name="Checkpoint" parent="." instance=ExtResource("5_ve5ok")]
+position = Vector2(562, 182)
 
 [node name="KillBox" type="Area2D" parent="."]
 script = ExtResource("4_56gwk")
@@ -2857,9 +2888,6 @@ respawn_point = NodePath("../RespawnPoint")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
 position = Vector2(577, 649)
 shape = SubResource("RectangleShape2D_tipki")
-
-[node name="RespawnPoint" type="Node2D" parent="."]
-position = Vector2(30, 575)
 
 [node name="RightBoundary" type="StaticBody2D" parent="." groups=["boundary"]]
 position = Vector2(103, 3)
@@ -2892,30 +2920,10 @@ layer_0/tile_data = PackedInt32Array(2424839, 0, 0, 2490375, 0, 1, 2555911, 0, 1
 [node name="TileMap" type="TileMap" parent="Terrain"]
 tile_set = SubResource("TileSet_tefeu")
 format = 2
-layer_0/tile_data = PackedInt32Array(2424832, 65536, 0, 2424833, 65536, 0, 2424834, 65536, 0, 2424835, 65536, 0, 2424836, 327680, 0, 2490367, 0, 0, 2490372, 327680, 1, 2555908, 327680, 1, 2621444, 327680, 1, 2490371, 131072, 1, 2490370, 131072, 1, 2490369, 131072, 1, 2490368, 131072, 1, 2555903, 0, 1, 2621439, 0, 1, 2686975, 0, 1, 2621440, 131072, 1, 2621441, 131072, 1, 2621442, 131072, 1, 2621443, 131072, 1, 2555907, 131072, 1, 2555906, 131072, 1, 2555905, 131072, 1, 2555904, 131072, 1, 2162696, 0, 0, 2162697, 65536, 0, 2162698, 65536, 0, 2162699, 327680, 0, 1900546, 0, 0, 1900547, 65536, 0, 1900548, 65536, 0, 1900549, 327680, 0, 1638408, 0, 0, 1638409, 65536, 0, 1638410, 65536, 0, 1638411, 327680, 0, 1376258, 0, 0, 1376259, 65536, 0, 1376260, 65536, 0, 1376261, 327680, 0, 1114120, 0, 0, 1114121, 65536, 0, 1114122, 65536, 0, 1114123, 327680, 0)
+layer_0/tile_data = PackedInt32Array(2424832, 65536, 0, 2424833, 65536, 0, 2424834, 65536, 0, 2424835, 65536, 0, 2424836, 327680, 0, 2490367, 0, 0, 2490372, 327680, 1, 2555908, 327680, 1, 2621444, 327680, 1, 2490371, 131072, 1, 2490370, 131072, 1, 2490369, 131072, 1, 2490368, 131072, 1, 2555903, 0, 1, 2621439, 0, 1, 2686975, 0, 1, 2621440, 131072, 1, 2621441, 131072, 1, 2621442, 131072, 1, 2621443, 131072, 1, 2555907, 131072, 1, 2555906, 131072, 1, 2555905, 131072, 1, 2555904, 131072, 1, 2162696, 0, 0, 2162697, 65536, 0, 2162698, 65536, 0, 2162699, 327680, 0, 1900546, 0, 0, 1900547, 65536, 0, 1900548, 65536, 0, 1900549, 327680, 0, 1638408, 0, 0, 1638409, 65536, 0, 1638410, 65536, 0, 1638411, 327680, 0, 1376258, 0, 0, 1376259, 65536, 0, 1376260, 65536, 0, 1376261, 327680, 0, 1114120, 0, 0, 1114121, 65536, 0, 1114122, 65536, 0, 1114123, 327680, 0, 786465, 0, 0, 786466, 65536, 0, 786467, 65536, 0, 786468, 327680, 0)
 
-[node name="Player" parent="." instance=ExtResource("8_g8vcy")]
-position = Vector2(30, 575)
-script = ExtResource("9_8g4ke")
-
-[node name="Mushrooms" type="Node2D" parent="."]
-
-[node name="Mushroom2" parent="Mushrooms" instance=ExtResource("9_cqal4")]
-position = Vector2(157, 262)
-
-[node name="Mushroom1" parent="Mushrooms" instance=ExtResource("9_cqal4")]
-position = Vector2(158, 519)
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_o3sye")
-autoplay = true
-
-[node name="MovingPlatform1" type="AnimatableBody2D" parent="."]
+[node name="MovingPlatform1" type="AnimatableBody2D" parent="." groups=["moving_platform"]]
 position = Vector2(-47, -14)
-metadata/_edit_group_ = true
-
-[node name="Checkpoint" parent="MovingPlatform1" instance=ExtResource("5_ve5ok")]
-position = Vector2(323, 530)
 
 [node name="TileMap" type="TileMap" parent="MovingPlatform1"]
 position = Vector2(0, -3)
@@ -2927,7 +2935,13 @@ layer_0/tile_data = PackedInt32Array(2228242, 0, 0, 2228243, 65536, 0, 2228244, 
 position = Vector2(320, 549.25)
 shape = SubResource("RectangleShape2D_56gwk")
 
-[node name="MovingPlatform2" type="AnimatableBody2D" parent="."]
+[node name="PlatformAnimation1" type="AnimationPlayer" parent="MovingPlatform1"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_56gwk")
+}
+
+[node name="MovingPlatform2" type="AnimatableBody2D" parent="." groups=["moving_platform"]]
 position = Vector2(572, -270)
 metadata/_edit_group_ = true
 
@@ -2941,22 +2955,54 @@ layer_0/tile_data = PackedInt32Array(2228242, 0, 0, 2228243, 65536, 0, 2228244, 
 position = Vector2(320, 549.25)
 shape = SubResource("RectangleShape2D_56gwk")
 
-[node name="PlatformAnimation2" type="AnimationPlayer" parent="."]
-root_node = NodePath("../MovingPlatform2")
+[node name="PlatformAnimation2" type="AnimationPlayer" parent="MovingPlatform2"]
 libraries = {
 &"": SubResource("AnimationLibrary_cleqw")
 }
 
-[node name="PlatformAnimation1" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_56gwk")
-}
+[node name="Trolls" type="Node2D" parent="."]
 
-[node name="Mushroom1" parent="." instance=ExtResource("9_cqal4")]
-position = Vector2(1014, 517)
+[node name="Troll" parent="Trolls" instance=ExtResource("9_cqal4")]
+position = Vector2(159, 516)
 
-[node name="Mushroom2" parent="." instance=ExtResource("9_cqal4")]
-position = Vector2(1111, 325)
+[node name="Troll2" parent="Trolls" instance=ExtResource("9_cqal4")]
+position = Vector2(60, 452)
 
-[node name="Mushroom3" parent="." instance=ExtResource("9_cqal4")]
-position = Vector2(1012, 260)
+[node name="Troll3" parent="Trolls" instance=ExtResource("9_cqal4")]
+position = Vector2(63, 324)
+
+[node name="Troll4" parent="Trolls" instance=ExtResource("9_cqal4")]
+position = Vector2(1106, 323)
+
+[node name="Troll5" parent="Trolls" instance=ExtResource("9_cqal4")]
+position = Vector2(1009, 258)
+
+[node name="Troll6" parent="Trolls" instance=ExtResource("9_cqal4")]
+position = Vector2(1010, 514)
+
+[node name="Player" parent="." instance=ExtResource("8_g8vcy")]
+position = Vector2(33, 574)
+script = ExtResource("9_8g4ke")
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin7" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(1015, 385)
+
+[node name="Coin" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(356, 515)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(897, 515)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(543, 184)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(580, 183)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(40, 327)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("15_cleqw")]
+position = Vector2(1037, 264)

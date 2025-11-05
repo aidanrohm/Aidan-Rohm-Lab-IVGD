@@ -4,7 +4,7 @@ extends Control
 @onready var how_to_button: Button = $VBoxContainer/HowToButton
 
 func _ready():
-	# Connect button signals
+	# Connected button signals, calls respective functions when signaled
 	play_button.pressed.connect(_on_play_pressed)
 	how_to_button.pressed.connect(_on_how_to_pressed)
 	

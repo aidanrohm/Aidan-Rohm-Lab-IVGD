@@ -31,7 +31,7 @@ func activate_checkpoint(player):
 		flag_sprite.modulate = active_color
 		flag_sprite.play("sway") # play the waving animation
 
-		# Playing a sligjt jump animation on the flag by using a tween, to animate its active state
+		# Playing a slight jump animation on the flag by using a tween, to animate its active state
 		if raise_on_activate:
 			var tween = get_tree().create_tween()
 			tween.tween_property(flag_sprite, "position:y", flag_sprite.position.y - 10, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)

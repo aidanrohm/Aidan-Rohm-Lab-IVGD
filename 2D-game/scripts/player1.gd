@@ -6,14 +6,14 @@ const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var attack_area: Area2D = $AttackRange  			# The new attack range Area2D
-@onready var lives_label = get_tree().get_root().get_node("Level2/UI/VBoxContainer/LivesLabel")
+@onready var attack_area: Area2D = $AttackRange				# The new attack range Area2D
+@onready var lives_label = get_tree().get_root().get_node("Level1/UI/VBoxContainer/LivesLabel")
 
-var is_attacking: bool = false 								# Flag to track if attack animation is playing
-var can_attack: bool = false 								# Flag to allow continuous attack while overlapping
-var overlapping_trolls: Array = [] 							# List of trolls currently inside attack range
-var lives: int = 3 											# Player starts with 3 lives
-var checkpoint_position: Vector2 = Vector2(30, 575) 		# Default spawn position
+var is_attacking: bool = false								# Flag to track if attack animation is playing
+var can_attack: bool = false								# Flag to allow continuous attack while overlapping
+var overlapping_trolls: Array = []							# List of trolls currently inside attack range
+var lives: int = 3											# Player starts with 3 lives
+var checkpoint_position: Vector2 = Vector2(30, 575)			# Default spawn position
 
 func _ready():
 	# Connect to detect when animations finish
@@ -38,14 +38,14 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.play("jump") # Using the jump animation
 
 	# Horizontal movement
-	var direction := Input.get_axis("ui_left", "ui_right") 	# Direction based on pressed keys
-	if not is_attacking: 									# Prevent movement during attack
+	var direction := Input.get_axis("ui_left", "ui_right")	# Direction based on pressed keys
+	if not is_attacking:									# Prevent movement during attack
 		if direction != 0:
-			velocity.x = direction * SPEED 					# Set horizontal speed
+			velocity.x = direction * SPEED					# Set horizontal speed
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED) 	# Graceful slowdown
+			velocity.x = move_toward(velocity.x, 0, SPEED)	# Graceful slowdown
 	else:
-		velocity.x = 0 										# Stop horizontal movement while attacking
+		velocity.x = 0										# Stop horizontal movement while attacking
 
 	# Move the player
 	move_and_slide()
@@ -72,9 +72,9 @@ func _physics_process(delta: float) -> void:
 		if animated_sprite.animation != "jump":
 			animated_sprite.play("jump")
 	elif direction == 0:
-		animated_sprite.play("idle") 	# Idle animation trigger
+		animated_sprite.play("idle")	# Idle animation trigger
 	else:
-		animated_sprite.play("run") 	# Run animation trigger
+		animated_sprite.play("run")		# Run animation trigger
 
 	# Flip the sprite based on direction of movement
 	if direction != 0:
@@ -88,8 +88,8 @@ func _on_animation_finished():
 
 func _on_attack_area_area_entered(area: Area2D):
 	# Track trolls entering attack range
-	if area.is_in_group("troll_hitbox"):				# troll hitbox is in the group
-		overlapping_trolls.append(area.get_parent()) # get the troll node
+	if area.is_in_group("troll_hitbox"):				
+		overlapping_trolls.append(area.get_parent())
 
 func _on_attack_area_area_exited(area: Area2D):
 	# Remove trolls leaving attack range
@@ -119,7 +119,7 @@ func _game_over():
 	print("Game Over! Restarting scene...")
 	call_deferred("_reload_scene_safely") # Prevents modifying nodes during physics
 
-# Reload safely (avoids physics crash)
+# Reload safely
 func _reload_scene_safely():
 	get_tree().reload_current_scene()
 
@@ -143,7 +143,7 @@ func respawn_at_checkpoint():
 	print("Player respawned at checkpoint: ", checkpoint_position)
 	_flash_red_and_scale_effect()
 
-# Visualizing the respawn effect (kept for other damage sources if needed)
+# Visualizing the respawn effect so the player knows they did something wrong
 func _flash_red_and_scale_effect():
 	var original_color = animated_sprite.modulate
 	var original_scale = scale

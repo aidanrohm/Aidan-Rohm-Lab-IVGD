@@ -13,7 +13,14 @@ config_version=5
 config/name="2DGame"
 run/main_scene="uid://ci15ir0in351u"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://assets/music/default_bus_layout.tres"
+
+[autoload]
+
+score_manager="*res://scripts/score_manager.gd"
 
 [display]
 
