@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl27gsgeygg4i"
-path="res://.godot/imported/idle sheet-Sheet.png-58938029bb0da975e04acaac5790e195.ctex"
+uid="uid://cq0fkv36ot4tf"
+path="res://.godot/imported/Mushroom-Attack.png-70890cc991358616e946eec91ff73603.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/idle sheet-Sheet.png"
-dest_files=["res://.godot/imported/idle sheet-Sheet.png-58938029bb0da975e04acaac5790e195.ctex"]
+source_file="res://assets/mushroom/Mushroom-Attack.png"
+dest_files=["res://.godot/imported/Mushroom-Attack.png-70890cc991358616e946eec91ff73603.ctex"]
 
 [params]
 
