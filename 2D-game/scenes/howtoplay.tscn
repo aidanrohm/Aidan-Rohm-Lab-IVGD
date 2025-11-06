@@ -17,13 +17,6 @@ stream = ExtResource("2_25cri")
 volume_db = -3.949
 autoplay = true
 
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_right = 45.0
-offset_bottom = 31.0
-text = "Back
-"
-
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -32,6 +25,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.13333334, 0.33333334, 0.1764706, 1)
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 123.0
+offset_bottom = 43.0
+text = "Back
+"
 
 [node name="InstructionsLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
