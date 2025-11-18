@@ -92,5 +92,13 @@ Continuing:
 	  feelings of change and development.
 
 Finishing:
-	- I admit that finishing the game might be hard for me to accomplish. I want it to have a very polished 
+	- I admit that finishing the game might be hard for me to accomplish. I want it to have a very polished with a logical conclusion (that leaves some curiosity).
+	- Once the environment is set correctly, the terminating point of the game will have to come from what feels best in the moment.
+	- I will spend a substantial amount of time considering how to create a thrilling state of curiousity for the player, through every step of developing the game itself.
+
+PROJECTED CHALLENGES:
+
+	- Asset collection: I admit that it will likely be difficult to find assets that work exactly as I want them to, without creating too much of a clash.
+	- Technical Development: I do not have much experience working in 3D, so it should be interesting to see how that feels moving forward with an ambitious idea.
+	- 
 
