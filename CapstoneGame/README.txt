@@ -104,3 +104,18 @@ PROJECTED CHALLENGES:
 		- For example, do I offer different paths? Subtle decision making? Or items to be picked up?
 		- There are many possibilities that I will need to explore because I do not want the MVP to feel bland, but it also shouldn't be too flushed out.
 
+
+NOTES:
+
+- Journal scraps
+- Gated system to allow the player to continue walking
+	- Timing/coordination with obstacles
+- Outer Wilds / What Remains of Edith Finch / Ginr Home (watch gameplay)
+- Consider using consistent assets but change the way they appear
+	- Scale, meshes, lighting on the assets itself
+- Cabin
+	- Is it home?
+	- What are you trying to do?
+	- Rememberring more over time
+	- Maybe things are becoming more important...
+
