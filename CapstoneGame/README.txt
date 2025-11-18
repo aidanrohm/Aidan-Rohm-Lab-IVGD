@@ -100,5 +100,7 @@ PROJECTED CHALLENGES:
 
 	- Asset collection: I admit that it will likely be difficult to find assets that work exactly as I want them to, without creating too much of a clash.
 	- Technical Development: I do not have much experience working in 3D, so it should be interesting to see how that feels moving forward with an ambitious idea.
-	- 
+	- Player Engagement: I am struggling already to think of ways that I can make the game interractive without straying from the original plot/idea too much.
+		- For example, do I offer different paths? Subtle decision making? Or items to be picked up?
+		- There are many possibilities that I will need to explore because I do not want the MVP to feel bland, but it also shouldn't be too flushed out.
 
