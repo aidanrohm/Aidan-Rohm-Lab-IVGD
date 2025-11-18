@@ -77,3 +77,11 @@ INSPIRATION:
 I have long wanted to play an environmentally immersive game that tells a short story, while giving the feeling of being trapped in nature and time. The closest
 game that I can think of to relate to this is Firewatch, which is really fantastic. While I know my game will be quite basic and will not permit extensive amounts
 of exploration and whatnot, I still want it to tell a story and leave the player curious for more.
+Another game for inspiration is Life is Strange. I find this game to be beautiful in its art and use of music and lighting. I never played the 
+entire game but when I was playing it, there were so many beautiful aspects to appreciate.
+
+DEVELOPMENT PROCESS:
+
+Start:
+	- I think to begin, the biggest thing to take care of is going to be setting the environment where the world changes with every step. This will
+	
