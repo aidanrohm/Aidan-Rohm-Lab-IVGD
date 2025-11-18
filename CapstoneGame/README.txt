@@ -82,6 +82,15 @@ entire game but when I was playing it, there were so many beautiful aspects to a
 
 DEVELOPMENT PROCESS:
 
-Start:
+Starting point:
 	- I think to begin, the biggest thing to take care of is going to be setting the environment where the world changes with every step. This will
-	
+	  definitely help get the basic structure of the game set first.
+
+Continuing:
+	- I think from here, since I want the game to feel immersive, it will be very important to focus on the environment itself.
+	- A lot of time will be spent on finding good assets, and trying to tastefully combine different styles, perhaps cycling between them, to create
+	  feelings of change and development.
+
+Finishing:
+	- I admit that finishing the game might be hard for me to accomplish. I want it to have a very polished 
+
