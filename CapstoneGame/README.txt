@@ -77,3 +77,45 @@ INSPIRATION:
 I have long wanted to play an environmentally immersive game that tells a short story, while giving the feeling of being trapped in nature and time. The closest
 game that I can think of to relate to this is Firewatch, which is really fantastic. While I know my game will be quite basic and will not permit extensive amounts
 of exploration and whatnot, I still want it to tell a story and leave the player curious for more.
+Another game for inspiration is Life is Strange. I find this game to be beautiful in its art and use of music and lighting. I never played the 
+entire game but when I was playing it, there were so many beautiful aspects to appreciate.
+
+DEVELOPMENT PROCESS:
+
+Starting point:
+	- I think to begin, the biggest thing to take care of is going to be setting the environment where the world changes with every step. This will
+	  definitely help get the basic structure of the game set first.
+
+Continuing:
+	- I think from here, since I want the game to feel immersive, it will be very important to focus on the environment itself.
+	- A lot of time will be spent on finding good assets, and trying to tastefully combine different styles, perhaps cycling between them, to create
+	  feelings of change and development.
+
+Finishing:
+	- I admit that finishing the game might be hard for me to accomplish. I want it to have a very polished with a logical conclusion (that leaves some curiosity).
+	- Once the environment is set correctly, the terminating point of the game will have to come from what feels best in the moment.
+	- I will spend a substantial amount of time considering how to create a thrilling state of curiousity for the player, through every step of developing the game itself.
+
+PROJECTED CHALLENGES:
+
+	- Asset collection: I admit that it will likely be difficult to find assets that work exactly as I want them to, without creating too much of a clash.
+	- Technical Development: I do not have much experience working in 3D, so it should be interesting to see how that feels moving forward with an ambitious idea.
+	- Player Engagement: I am struggling already to think of ways that I can make the game interractive without straying from the original plot/idea too much.
+		- For example, do I offer different paths? Subtle decision making? Or items to be picked up?
+		- There are many possibilities that I will need to explore because I do not want the MVP to feel bland, but it also shouldn't be too flushed out.
+
+
+NOTES:
+
+- Journal scraps
+- Gated system to allow the player to continue walking
+	- Timing/coordination with obstacles
+- Outer Wilds / What Remains of Edith Finch / Ginr Home (watch gameplay)
+- Consider using consistent assets but change the way they appear
+	- Scale, meshes, lighting on the assets itself
+- Cabin
+	- Is it home?
+	- What are you trying to do?
+	- Rememberring more over time
+	- Maybe things are becoming more important...
+
