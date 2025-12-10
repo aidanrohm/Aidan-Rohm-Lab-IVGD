@@ -3,6 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://bu40rgbtav6x5" path="res://scenes/Player.tscn" id="1_echbf"]
 [ext_resource type="Script" uid="uid://dyihmm3c1jv6j" path="res://scripts/game_controller.gd" id="2_ibiss"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibiss"]
+sky_energy_multiplier = 0.76
+ground_energy_multiplier = 0.0
+
+[sub_resource type="Sky" id="Sky_c6dvc"]
+sky_material = SubResource("ProceduralSkyMaterial_ibiss")
+
+[sub_resource type="Environment" id="Environment_611at"]
+background_mode = 2
+sky = SubResource("Sky_c6dvc")
+tonemap_mode = 2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_echbf"]
 size = Vector3(249.53067, 5, 0.3)
 
@@ -15,22 +27,19 @@ albedo_color = Color(0.47007585, 0.47007585, 0.47007585, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_611at"]
 size = Vector3(10, 0.1, 250)
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_c6dvc"]
-
-[sub_resource type="Sky" id="Sky_c6dvc"]
-sky_material = SubResource("PhysicalSkyMaterial_c6dvc")
-
-[sub_resource type="Environment" id="Environment_c6dvc"]
-sky = SubResource("Sky_c6dvc")
-ambient_light_source = 3
-ambient_light_energy = 4.0
-
 [sub_resource type="BoxMesh" id="BoxMesh_c6dvc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_611at"]
 albedo_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
 
 [node name="MainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_611at")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_echbf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 120)
@@ -59,13 +68,6 @@ shape = SubResource("BoxShape3D_611at")
 
 [node name="GameController" type="Node3D" parent="."]
 script = ExtResource("2_ibiss")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 1, 120)
-light_energy = 5.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_c6dvc")
 
 [node name="TestCube" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 100)

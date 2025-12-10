@@ -13,9 +13,9 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity") a
 var yaw: float = 0.0      # left/right rotation
 var pitch: float = 0.0    # up/down rotation
 
-func _ready() -> void:
+#func _ready() -> void:
 	# Lock the mouse to the center for FPS control
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _unhandled_input(event: InputEvent) -> void:
