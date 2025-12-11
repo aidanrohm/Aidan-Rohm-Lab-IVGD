@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4t3mqx030gsn"]
+
+[ext_resource type="PackedScene" uid="uid://hlricuxtyyot" path="res://scenes/EnvironmentCluster.tscn" id="1_67eac"]
+[ext_resource type="PackedScene" uid="uid://c0yioblix7cfc" path="res://scenes/LargeBush.tscn" id="2_xmxvi"]
+[ext_resource type="PackedScene" uid="uid://bkwncvmtr35tg" path="res://scenes/ClusterTree.tscn" id="3_4glb0"]
+[ext_resource type="PackedScene" uid="uid://07y1qifa2cru" path="res://scenes/PointyTreeCluster.tscn" id="4_c34sx"]
+[ext_resource type="PackedScene" uid="uid://qcamxhyl5sys" path="res://scenes/PomPomTree.tscn" id="5_x6xrg"]
+[ext_resource type="PackedScene" uid="uid://c61swpn755yxt" path="res://scenes/GeometricRockCluster.tscn" id="6_eakjs"]
+[ext_resource type="PackedScene" uid="uid://coqv3oxqmab44" path="res://scenes/BushCluster.tscn" id="7_f2bv6"]
+[ext_resource type="PackedScene" uid="uid://vpcehqukuiil" path="res://scenes/LargeBallTree.tscn" id="8_c34sx"]
+[ext_resource type="PackedScene" uid="uid://c64s7teyde4kv" path="res://scenes/TriangularTree.tscn" id="9_x6xrg"]
+[ext_resource type="PackedScene" uid="uid://vu83vt2xvqj5" path="res://scenes/BarePointyTree.tscn" id="10_eakjs"]
+
+[node name="LargeEnvironmentCluster" type="Node3D"]
+
+[node name="EnvironmentCluster" parent="." instance=ExtResource("1_67eac")]
+transform = Transform3D(0.9788674, 0, -0.20449604, 0, 1, 0, 0.20449604, 0, 0.9788674, 0.61750555, 0, 3.0408688)
+
+[node name="LargeBush" parent="." instance=ExtResource("2_xmxvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0405922, 0, 2.034197)
+
+[node name="ClusterTree" parent="." instance=ExtResource("3_4glb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8625641, 0, -0.27709675)
+
+[node name="PointyTreeCluster" parent="." instance=ExtResource("4_c34sx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0637684, 0, -7.6639895)
+
+[node name="PomPomTree" parent="." instance=ExtResource("5_x6xrg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4467502, 0, -7.1905417)
+
+[node name="ClusterTree2" parent="." instance=ExtResource("3_4glb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5157824, 0, -9.305008)
+
+[node name="PomPomTree2" parent="." instance=ExtResource("5_x6xrg")]
+transform = Transform3D(0.8151278, 0, -0.57928115, 0, 1, 0, 0.57928115, 0, 0.8151278, 3.671784, 0, -8.18991)
+
+[node name="GeometricRockCluster" parent="." instance=ExtResource("6_eakjs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6594603, 0, -10.616437)
+
+[node name="LargeBush2" parent="." instance=ExtResource("2_xmxvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6509185, 0, -11.693579)
+
+[node name="BushCluster" parent="." instance=ExtResource("7_f2bv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40099, 0, -13.044635)
+
+[node name="ClusterTree3" parent="." instance=ExtResource("3_4glb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8809505, 0, -13.741591)
+
+[node name="PomPomTree3" parent="." instance=ExtResource("5_x6xrg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29181194, 0, -15.649583)
+
+[node name="PointyTreeCluster2" parent="." instance=ExtResource("4_c34sx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3231654, -9.536743e-07, -19.100002)
+
+[node name="BallTree" parent="." instance=ExtResource("8_c34sx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8254328, 0, -15.724249)
+
+[node name="PomPomTree4" parent="." instance=ExtResource("5_x6xrg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7036638, 0, -21.541351)
+
+[node name="BallTree2" parent="." instance=ExtResource("8_c34sx")]
+transform = Transform3D(0.32886666, 0, 0.94437635, 0, 1, 0, -0.94437635, 0, 0.32886666, -3.063939, 0, -23.263298)
+
+[node name="LargeBush3" parent="." instance=ExtResource("2_xmxvi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0039247, 0, -20.218292)
+
+[node name="PointyTreeCluster3" parent="." instance=ExtResource("4_c34sx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.599772, 0, -26.659145)
+
+[node name="TriangularTree" parent="." instance=ExtResource("9_x6xrg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1776199, 0, -28.227818)
+
+[node name="GeometricRockCluster2" parent="." instance=ExtResource("6_eakjs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28512502, 0, -30.766584)
+
+[node name="BarePointyTree" parent="." instance=ExtResource("10_eakjs")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.229186, 0, -29.67442)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://hlricuxtyyot"]
+
+[ext_resource type="PackedScene" uid="uid://bkwncvmtr35tg" path="res://scenes/ClusterTree.tscn" id="1_5pjs7"]
+[ext_resource type="PackedScene" uid="uid://coqv3oxqmab44" path="res://scenes/BushCluster.tscn" id="2_uidqs"]
+[ext_resource type="PackedScene" uid="uid://c0yioblix7cfc" path="res://scenes/LargeBush.tscn" id="3_k544j"]
+[ext_resource type="PackedScene" uid="uid://qcamxhyl5sys" path="res://scenes/PomPomTree.tscn" id="4_gxmuw"]
+[ext_resource type="PackedScene" uid="uid://vpcehqukuiil" path="res://scenes/LargeBallTree.tscn" id="5_qvmjp"]
+[ext_resource type="PackedScene" uid="uid://c61swpn755yxt" path="res://scenes/GeometricRockCluster.tscn" id="6_2ngvh"]
+
+[node name="EnvironmentCluster" type="Node3D"]
+
+[node name="ClusterTree" parent="." instance=ExtResource("1_5pjs7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9939772, 0, 0.42201638)
+
+[node name="BushCluster" parent="." instance=ExtResource("2_uidqs")]
+transform = Transform3D(0.12879564, 0, 0.99167114, 0, 1, 0, -0.99167114, 0, 0.12879564, -1.3598678, -1.1920929e-07, 1.356272)
+
+[node name="LargeBush" parent="." instance=ExtResource("3_k544j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5096276, 0, 3.0509229)
+
+[node name="PomPomTree" parent="." instance=ExtResource("4_gxmuw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.89544296, 0, 2.735128)
+
+[node name="BallTree" parent="." instance=ExtResource("5_qvmjp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9887297, 0, -3.4420033)
+
+[node name="GeometricRockCluster" parent="." instance=ExtResource("6_2ngvh")]
+transform = Transform3D(0.5150381, 0, -0.8571673, 0, 1, 0, 0.8571673, 0, 0.5150381, -2.429573, -0.6039226, -5.908293)

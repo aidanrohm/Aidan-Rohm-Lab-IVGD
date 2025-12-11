@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://vu83vt2xvqj5"]
+
+[ext_resource type="PackedScene" uid="uid://ccfalaf8kqd2g" path="res://assets/Tree_Bare_2_A_Color1.fbx" id="1_mojkx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pxat1"]
+radius = 0.22558594
+height = 2.171875
+
+[node name="BarePointyTree" instance=ExtResource("1_mojkx")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7763672, 0)
+shape = SubResource("CapsuleShape3D_pxat1")

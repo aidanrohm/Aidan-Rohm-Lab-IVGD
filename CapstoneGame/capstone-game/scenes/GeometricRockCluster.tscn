@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c61swpn755yxt"]
+
+[ext_resource type="PackedScene" uid="uid://bwpn2mnxg4wws" path="res://assets/Rock_2_F_Color1.fbx" id="1_123pf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4vlta"]
+size = Vector3(3.9176025, 1.1824951, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jvg64"]
+size = Vector3(1.4272461, 1.7839355, 2.6067505)
+
+[node name="GeometricRockCluster" instance=ExtResource("1_123pf")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -0.20679706, 0.5359497, -0.028355723)
+shape = SubResource("BoxShape3D_4vlta")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -0.34071377, 1.1973877, -0.028605148)
+shape = SubResource("BoxShape3D_jvg64")

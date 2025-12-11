@@ -1,19 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8c43hnutq0qo"]
+[gd_scene load_steps=23 format=3 uid="uid://b8c43hnutq0qo"]
 
 [ext_resource type="PackedScene" uid="uid://bu40rgbtav6x5" path="res://scenes/Player.tscn" id="1_echbf"]
 [ext_resource type="Script" uid="uid://dyihmm3c1jv6j" path="res://scripts/game_controller.gd" id="2_ibiss"]
+[ext_resource type="PackedScene" uid="uid://vpcehqukuiil" path="res://scenes/LargeBallTree.tscn" id="3_c6dvc"]
+[ext_resource type="PackedScene" uid="uid://c0yioblix7cfc" path="res://scenes/LargeBush.tscn" id="4_611at"]
+[ext_resource type="PackedScene" uid="uid://qcamxhyl5sys" path="res://scenes/PomPomTree.tscn" id="5_k24pf"]
+[ext_resource type="PackedScene" uid="uid://c64s7teyde4kv" path="res://scenes/TriangularTree.tscn" id="6_ygjfp"]
+[ext_resource type="PackedScene" uid="uid://vu83vt2xvqj5" path="res://scenes/BarePointyTree.tscn" id="7_1wiy7"]
+[ext_resource type="PackedScene" uid="uid://bkwncvmtr35tg" path="res://scenes/ClusterTree.tscn" id="8_x537r"]
+[ext_resource type="PackedScene" uid="uid://07y1qifa2cru" path="res://scenes/PointyTreeCluster.tscn" id="9_cfq0f"]
+[ext_resource type="PackedScene" uid="uid://coqv3oxqmab44" path="res://scenes/BushCluster.tscn" id="10_pjux3"]
+[ext_resource type="PackedScene" uid="uid://hlricuxtyyot" path="res://scenes/EnvironmentCluster.tscn" id="11_kp0ql"]
+[ext_resource type="PackedScene" uid="uid://c61swpn755yxt" path="res://scenes/GeometricRockCluster.tscn" id="11_o3jky"]
+[ext_resource type="PackedScene" uid="uid://b4t3mqx030gsn" path="res://scenes/LargeEnvironmentCluster.tscn" id="13_08o8g"]
+[ext_resource type="PackedScene" uid="uid://cep8d8b1ltqbc" path="res://scenes/EndofPath.tscn" id="14_08o8g"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibiss"]
-sky_energy_multiplier = 0.76
-ground_energy_multiplier = 0.0
-
-[sub_resource type="Sky" id="Sky_c6dvc"]
-sky_material = SubResource("ProceduralSkyMaterial_ibiss")
-
-[sub_resource type="Environment" id="Environment_611at"]
-background_mode = 2
-sky = SubResource("Sky_c6dvc")
-tonemap_mode = 2
+[sub_resource type="BoxShape3D" id="BoxShape3D_ibiss"]
+size = Vector3(10.049316, 4.69458, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_echbf"]
 size = Vector3(249.53067, 5, 0.3)
@@ -27,22 +30,25 @@ albedo_color = Color(0.47007585, 0.47007585, 0.47007585, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_611at"]
 size = Vector3(10, 0.1, 250)
 
-[sub_resource type="BoxMesh" id="BoxMesh_c6dvc"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibiss"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_611at"]
-albedo_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+[sub_resource type="Sky" id="Sky_c6dvc"]
+sky_material = SubResource("ProceduralSkyMaterial_ibiss")
+
+[sub_resource type="Environment" id="Environment_611at"]
+background_mode = 2
+sky = SubResource("Sky_c6dvc")
+tonemap_mode = 2
 
 [node name="MainScene" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_611at")
+[node name="BackWall" type="StaticBody3D" parent="."]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
-shadow_enabled = true
-
-[node name="Player" parent="." instance=ExtResource("1_echbf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 120)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014404297, 2.2110596, 125)
+shape = SubResource("BoxShape3D_ibiss")
 
 [node name="LeftWall" type="StaticBody3D" parent="."]
 
@@ -66,10 +72,56 @@ surface_material_override/0 = SubResource("StandardMaterial3D_c6dvc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/GroundBody"]
 shape = SubResource("BoxShape3D_611at")
 
-[node name="GameController" type="Node3D" parent="."]
+[node name="Player Environment Folder" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Player Environment Folder"]
+environment = SubResource("Environment_611at")
+
+[node name="PomPomTree" parent="Player Environment Folder" instance=ExtResource("5_k24pf")]
+transform = Transform3D(4.485, 0, 0, 0, 4.485, 0, 0, 0, 4.485, 4.5593443, 0.34460056, 112.25908)
+
+[node name="BallBush" parent="Player Environment Folder" instance=ExtResource("4_611at")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 0, 116.44865)
+
+[node name="BallTree" parent="Player Environment Folder" instance=ExtResource("3_c6dvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4623759, 1.003185, 122.41897)
+
+[node name="TriangularTree" parent="Player Environment Folder" instance=ExtResource("6_ygjfp")]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -2.770228, 0.39212522, 111.271965)
+
+[node name="BarePointyTree" parent="Player Environment Folder" instance=ExtResource("7_1wiy7")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.077509, 0.097314596, 103.05551)
+
+[node name="ClusterTree" parent="Player Environment Folder" instance=ExtResource("8_x537r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.656621, 0.26267338, 102.173996)
+
+[node name="PointyTreeCluster" parent="Player Environment Folder" instance=ExtResource("9_cfq0f")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3, 0, 91.123375)
+
+[node name="BushCluster" parent="Player Environment Folder" instance=ExtResource("10_pjux3")]
+transform = Transform3D(1.9151111, 0, 1.6069689, 0, 2.5, 0, -1.6069689, 0, 1.9151111, 3.4684172, 0.08653784, 96.51127)
+
+[node name="GeometricRockCluster" parent="Player Environment Folder" instance=ExtResource("11_o3jky")]
+transform = Transform3D(-0.46947157, 0, 0.88294756, 0, 1, 0, -0.88294756, 0, -0.46947157, -2.7656212, -0.03496933, 107.17589)
+
+[node name="LargeEnvironmentCluster" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.05591011, -0.15011215, 45.953514)
+
+[node name="EnvironmentCluster" parent="Player Environment Folder" instance=ExtResource("11_kp0ql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.247261, 0.2337414, 85.29026)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Player Environment Folder"]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GameController" type="Node3D" parent="Player Environment Folder"]
 script = ExtResource("2_ibiss")
 
-[node name="TestCube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 100)
-mesh = SubResource("BoxMesh_c6dvc")
-surface_material_override/0 = SubResource("StandardMaterial3D_611at")
+[node name="PomPomTree2" parent="Player Environment Folder" instance=ExtResource("5_k24pf")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 4.3163114, 0.3906207, 55.29356)
+
+[node name="Player" parent="Player Environment Folder" instance=ExtResource("1_echbf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 120)
+
+[node name="EndofPath" parent="Player Environment Folder" instance=ExtResource("14_08o8g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0525374, 0, -144.75862)

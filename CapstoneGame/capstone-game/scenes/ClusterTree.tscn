@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkwncvmtr35tg"]
+
+[ext_resource type="PackedScene" uid="uid://cayau6gf2dnvf" path="res://assets/Tree_4_C_Color1.fbx" id="1_vluhp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4p5uw"]
+radius = 0.25097656
+height = 2.2978516
+
+[node name="ClusterTree" instance=ExtResource("1_vluhp")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81396484, 0)
+shape = SubResource("CapsuleShape3D_4p5uw")

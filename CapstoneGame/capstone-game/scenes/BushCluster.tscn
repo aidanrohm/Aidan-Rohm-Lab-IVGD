@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://coqv3oxqmab44"]
+
+[ext_resource type="PackedScene" uid="uid://cf11jy6i2ry2p" path="res://assets/Bush_4_D_Color1.fbx" id="1_0064e"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_r4tfd"]
+height = 0.62994385
+radius = 0.65722656
+
+[node name="BushCluster" instance=ExtResource("1_0064e")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012217522, 0.35098267, 0)
+shape = SubResource("CylinderShape3D_r4tfd")

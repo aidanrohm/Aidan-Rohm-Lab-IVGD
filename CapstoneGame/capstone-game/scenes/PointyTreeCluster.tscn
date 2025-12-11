@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://07y1qifa2cru"]
+
+[ext_resource type="PackedScene" uid="uid://bkwncvmtr35tg" path="res://scenes/ClusterTree.tscn" id="1_ggyfq"]
+[ext_resource type="PackedScene" uid="uid://c64s7teyde4kv" path="res://scenes/TriangularTree.tscn" id="2_rcv05"]
+[ext_resource type="PackedScene" uid="uid://c0yioblix7cfc" path="res://scenes/LargeBush.tscn" id="3_dyyt7"]
+[ext_resource type="PackedScene" uid="uid://vu83vt2xvqj5" path="res://scenes/BarePointyTree.tscn" id="4_3ybim"]
+
+[node name="PointyTreeCluster" type="Node3D"]
+
+[node name="ClusterTree" parent="." instance=ExtResource("1_ggyfq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.86310494, -1.1920929e-07, 0.74723125)
+
+[node name="Tree_4_A_Color1" parent="." instance=ExtResource("2_rcv05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5594522, 0, 1.7819748)
+
+[node name="Bush_1_A_Color1" parent="." instance=ExtResource("3_dyyt7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0990136, 2.3841858e-07, 2.7783868)
+
+[node name="Tree_Bare_2_A_Color1" parent="." instance=ExtResource("4_3ybim")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22841811, 0, 3.7407017)

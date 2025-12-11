@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://cep8d8b1ltqbc"]
+
+[ext_resource type="PackedScene" uid="uid://hlricuxtyyot" path="res://scenes/EnvironmentCluster.tscn" id="1_74pl4"]
+[ext_resource type="PackedScene" uid="uid://07y1qifa2cru" path="res://scenes/PointyTreeCluster.tscn" id="2_mq6ta"]
+[ext_resource type="PackedScene" uid="uid://b4t3mqx030gsn" path="res://scenes/LargeEnvironmentCluster.tscn" id="3_kpyfb"]
+[ext_resource type="PackedScene" uid="uid://c61swpn755yxt" path="res://scenes/GeometricRockCluster.tscn" id="4_fv8aa"]
+[ext_resource type="PackedScene" uid="uid://c64s7teyde4kv" path="res://scenes/TriangularTree.tscn" id="5_gd4bv"]
+[ext_resource type="PackedScene" uid="uid://vpcehqukuiil" path="res://scenes/LargeBallTree.tscn" id="6_tw0nm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v7j0u"]
+size = Vector2(40, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u7pjb"]
+albedo_color = Color(0.47007585, 0.47007585, 0.47007585, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpyfb"]
+size = Vector3(40, 0.1, 40)
+
+[node name="EndofPath" type="Node3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_v7j0u")
+surface_material_override/0 = SubResource("StandardMaterial3D_u7pjb")
+
+[node name="GroundBody" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/GroundBody"]
+shape = SubResource("BoxShape3D_kpyfb")
+
+[node name="EnvironmentCluster" parent="." instance=ExtResource("1_74pl4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.205982, 0.09393513, -12.503065)
+
+[node name="PointyTreeCluster" parent="." instance=ExtResource("2_mq6ta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.785229, 0.19448295, -7.1228123)
+
+[node name="LargeEnvironmentCluster" parent="." instance=ExtResource("3_kpyfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.592909, -0.1050421, 14.091659)
+
+[node name="GeometricRockCluster" parent="." instance=ExtResource("4_fv8aa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.779931, 0.05000019, -11.753466)
+
+[node name="TriangularTree" parent="." instance=ExtResource("5_gd4bv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8131685, 0.39212617, -18.050688)
+
+[node name="PointyTreeCluster2" parent="." instance=ExtResource("2_mq6ta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7953053, 0.4083492, -18.767824)
+
+[node name="BallTree" parent="." instance=ExtResource("6_tw0nm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58420086, 1.3565916, -17.572403)
+
+[node name="EnvironmentCluster2" parent="." instance=ExtResource("1_74pl4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.908789, 0.4278258, 11.325666)

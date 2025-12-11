@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0yioblix7cfc"]
+
+[ext_resource type="PackedScene" uid="uid://1xvyr6x7lp41" path="res://assets/Bush_1_A_Color1.fbx" id="1_ben20"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6247d"]
+radius = 0.00850049
+
+[node name="LargeBush" instance=ExtResource("1_ben20")]
+
+[node name="Bush_1_A_Color1" parent="." index="0"]
+transform = Transform3D(500, 0, 0, 0, -2.1855694e-05, 500, 0, -500, -2.1855694e-05, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1.0000005, 0, 0, 0, 1.0000007, -2.842171e-14, 0, 2.842171e-14, 1.0000007, 0, -5.9183974e-10, 0.004964711)
+shape = SubResource("SphereShape3D_6247d")
