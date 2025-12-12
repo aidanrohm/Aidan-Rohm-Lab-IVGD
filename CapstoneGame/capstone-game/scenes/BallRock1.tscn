@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3fy6rp5ggnso"]
+
+[ext_resource type="PackedScene" uid="uid://wu203dqkj0i" path="res://assets/Rock_3_H_Color1.fbx" id="1_x15wm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_edoh4"]
+radius = 0.9848473
+
+[node name="BallRock1" instance=ExtResource("1_x15wm")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("SphereShape3D_edoh4")

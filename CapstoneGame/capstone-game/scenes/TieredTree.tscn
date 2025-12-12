@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl50hb4q243bk"]
+
+[ext_resource type="PackedScene" uid="uid://cl5xu2xjxdam0" path="res://assets/Tree_3_C_Color1.fbx" id="1_lt4t8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ay57j"]
+radius = 0.0068359375
+height = 0.037017822
+
+[node name="TieredTree" instance=ExtResource("1_lt4t8")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tree_3_C_Color1" index="0"]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, -1.4210855e-14, 0, 1.4210855e-14, 1.0000001, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tree_3_C_Color1/StaticBody3D" index="0"]
+transform = Transform3D(0.9999999, 0, 0, 0, -4.371182e-08, -0.9999998, 0, 0.9999998, -4.371182e-08, 2.3511944e-05, 0.0021865591, 0.013176671)
+shape = SubResource("CapsuleShape3D_ay57j")

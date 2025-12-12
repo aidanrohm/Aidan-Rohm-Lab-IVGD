@@ -21,3 +21,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 0, 0.1)
 current = true
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Neck"]

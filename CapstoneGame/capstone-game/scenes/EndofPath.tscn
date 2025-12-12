@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cep8d8b1ltqbc"]
+[gd_scene load_steps=9 format=3 uid="uid://cep8d8b1ltqbc"]
 
 [ext_resource type="PackedScene" uid="uid://hlricuxtyyot" path="res://scenes/EnvironmentCluster.tscn" id="1_74pl4"]
 [ext_resource type="PackedScene" uid="uid://07y1qifa2cru" path="res://scenes/PointyTreeCluster.tscn" id="2_mq6ta"]
-[ext_resource type="PackedScene" uid="uid://b4t3mqx030gsn" path="res://scenes/LargeEnvironmentCluster.tscn" id="3_kpyfb"]
 [ext_resource type="PackedScene" uid="uid://c61swpn755yxt" path="res://scenes/GeometricRockCluster.tscn" id="4_fv8aa"]
 [ext_resource type="PackedScene" uid="uid://c64s7teyde4kv" path="res://scenes/TriangularTree.tscn" id="5_gd4bv"]
 [ext_resource type="PackedScene" uid="uid://vpcehqukuiil" path="res://scenes/LargeBallTree.tscn" id="6_tw0nm"]
@@ -32,9 +31,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.205982, 0.09393513, -12.5
 
 [node name="PointyTreeCluster" parent="." instance=ExtResource("2_mq6ta")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.785229, 0.19448295, -7.1228123)
-
-[node name="LargeEnvironmentCluster" parent="." instance=ExtResource("3_kpyfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.592909, -0.1050421, 14.091659)
 
 [node name="GeometricRockCluster" parent="." instance=ExtResource("4_fv8aa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.779931, 0.05000019, -11.753466)
