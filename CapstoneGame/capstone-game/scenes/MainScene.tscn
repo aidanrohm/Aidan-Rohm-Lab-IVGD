@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b8c43hnutq0qo"]
+[gd_scene load_steps=27 format=3 uid="uid://b8c43hnutq0qo"]
 
 [ext_resource type="PackedScene" uid="uid://bu40rgbtav6x5" path="res://scenes/Player.tscn" id="1_echbf"]
 [ext_resource type="Script" uid="uid://dyihmm3c1jv6j" path="res://scripts/game_controller.gd" id="2_ibiss"]
@@ -26,10 +26,28 @@ size = Vector3(249.53067, 5, 0.3)
 size = Vector2(12, 250)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6dvc"]
-albedo_color = Color(0.47007585, 0.47007585, 0.47007585, 1)
+albedo_color = Color(0.33333334, 0.3882353, 0.2901961, 1)
+metallic_specular = 0.25
+roughness = 0.9
+normal_enabled = true
+normal_scale = 0.3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_611at"]
 size = Vector3(10, 0.1, 250)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cxu4"]
+albedo_color = Color(0.33333334, 0.3882353, 0.2901961, 1)
+metallic_specular = 0.25
+roughness = 0.9
+normal_enabled = true
+normal_scale = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xnxdc"]
+material = SubResource("StandardMaterial3D_0cxu4")
+size = Vector2(40, 40)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0ehpd"]
+data = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, 20, -20, 0, -20, 20, 0, -20)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibiss"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -72,6 +90,16 @@ surface_material_override/0 = SubResource("StandardMaterial3D_c6dvc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/GroundBody"]
 shape = SubResource("BoxShape3D_611at")
+
+[node name="EndOfPath" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -145)
+mesh = SubResource("PlaneMesh_xnxdc")
+skeleton = NodePath("../Ground")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="EndOfPath"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EndOfPath/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_0ehpd")
 
 [node name="Player Environment Folder" type="Node3D" parent="."]
 
@@ -185,4 +213,4 @@ transform = Transform3D(2.4453833, 0, 1.7378435, 0, 3, 0, -1.7378435, 0, 2.44538
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046901226, -0.014122248, -139.92879)
 
 [node name="LargeEnvironmentCluster2" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.2683773, 0.41393185, -29.378044)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.2683773, -0.18997717, -29.378044)

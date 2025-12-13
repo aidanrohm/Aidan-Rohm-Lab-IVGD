@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu40rgbtav6x5"]
+[gd_scene load_steps=5 format=3 uid="uid://bu40rgbtav6x5"]
 
 [ext_resource type="Script" uid="uid://piloo72r1dye" path="res://scripts/player.gd" id="1_p0vlq"]
+[ext_resource type="AudioStream" uid="uid://bvo5ve46l1p8k" path="res://assets/Sounds/heavy-footsteps-walking-35722.mp3" id="2_3li8b"]
+[ext_resource type="AudioStream" uid="uid://bdtl8raws0eb7" path="res://assets/Sounds/tinnitus-31244.mp3" id="2_v6fml"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p0vlq"]
 radius = 0.33447266
@@ -9,9 +11,9 @@ height = 1.5
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_p0vlq")
 
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
+[node name="Ears" type="AudioListener3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Body" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("CapsuleShape3D_p0vlq")
 
@@ -23,3 +25,13 @@ transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.984
 current = true
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Neck"]
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018434048, 0)
+stream = ExtResource("2_3li8b")
+
+[node name="RingingPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018434048, 0)
+stream = ExtResource("2_v6fml")
+max_db = -15.0
+autoplay = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://d3hohnxkqo2rq"]
+[gd_scene load_steps=61 format=3 uid="uid://d3hohnxkqo2rq"]
 
 [ext_resource type="Material" uid="uid://iv6v5d1p2ja5" path="res://materials/Interior_Wall_Wood.tres" id="1_ucmr7"]
 [ext_resource type="Material" uid="uid://cr018jn8y6h5p" path="res://materials/Interior_Wood.tres" id="2_y0dje"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://bg1nlf10gyh3x" path="res://materials/Stone_Grey.tres" id="4_y0dje"]
 [ext_resource type="AudioStream" uid="uid://c24f210crrtmj" path="res://assets/Sounds/fire-crackling-sounds-427410.mp3" id="5_coegt"]
 [ext_resource type="Material" uid="uid://cvw0ef7udtarf" path="res://materials/Cloth_Material.tres" id="6_hxinu"]
+[ext_resource type="AudioStream" uid="uid://cr50iq8cvbcx1" path="res://assets/Sounds/the-beat-of-nature-122841.mp3" id="7_b757m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gy3yg"]
 shading_mode = 0
@@ -187,6 +188,30 @@ size = Vector3(2, 0.3, 0.05)
 [sub_resource type="BoxMesh" id="BoxMesh_6j87r"]
 material = ExtResource("1_ucmr7")
 size = Vector3(2.5, 0.3, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjbfb"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.56
+
+[sub_resource type="BoxMesh" id="BoxMesh_ts5a8"]
+material = SubResource("StandardMaterial3D_jjbfb")
+size = Vector3(0.2, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4glf"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kbsoi"]
+material = SubResource("StandardMaterial3D_y4glf")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1eq5p"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.01
 
 [node name="Cabin" type="Node3D"]
 
@@ -926,3 +951,28 @@ mesh = SubResource("BoxMesh_6j87r")
 [node name="Trim5" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(-0.0016231015, -0.9999987, 0, 0.9999987, -0.0016231015, 0, 0, 0, 1, 0.5937159, 1.106326, 2.9171786)
 mesh = SubResource("BoxMesh_6j87r")
+
+[node name="Radio" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Radio"]
+transform = Transform3D(0.49550414, 0, 0.8686057, 0, 1, 0, -0.8686057, 0, 0.49550414, -4.0612717, 0.75231093, -0.86323434)
+mesh = SubResource("BoxMesh_ts5a8")
+
+[node name="Antenna" type="MeshInstance3D" parent="Radio/Body"]
+transform = Transform3D(0.09897424, -0.60519165, 0.78990346, 0.0010003075, 0.79386103, 0.6080986, -0.9950897, -0.059395835, 0.07917705, 0.013551905, 0.11940169, 0.0042097936)
+mesh = SubResource("CylinderMesh_kbsoi")
+
+[node name="Knob" type="MeshInstance3D" parent="Radio/Body"]
+transform = Transform3D(0.99999994, 0, 0, 0, -4.371139e-08, -0.99999994, 0, 1, -4.3711385e-08, 0.040146068, 0.028076708, 0.0528137)
+mesh = SubResource("CylinderMesh_1eq5p")
+
+[node name="Knob2" type="MeshInstance3D" parent="Radio/Body"]
+transform = Transform3D(0.99999994, 0, 0, 0, -4.371139e-08, -0.99999994, 0, 1, -4.3711385e-08, 0.040146068, -0.011276722, 0.0528137)
+mesh = SubResource("CylinderMesh_1eq5p")
+
+[node name="RadioMusic" type="AudioStreamPlayer3D" parent="Radio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.061, 0.752, -0.863)
+stream = ExtResource("7_b757m")
+volume_db = -23.301
+autoplay = true
+max_distance = 10.0

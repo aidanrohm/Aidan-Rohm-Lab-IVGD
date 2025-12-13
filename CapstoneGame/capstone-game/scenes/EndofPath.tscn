@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cep8d8b1ltqbc"]
+[gd_scene load_steps=6 format=3 uid="uid://cep8d8b1ltqbc"]
 
 [ext_resource type="PackedScene" uid="uid://hlricuxtyyot" path="res://scenes/EnvironmentCluster.tscn" id="1_74pl4"]
 [ext_resource type="PackedScene" uid="uid://07y1qifa2cru" path="res://scenes/PointyTreeCluster.tscn" id="2_mq6ta"]
@@ -6,25 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c64s7teyde4kv" path="res://scenes/TriangularTree.tscn" id="5_gd4bv"]
 [ext_resource type="PackedScene" uid="uid://vpcehqukuiil" path="res://scenes/LargeBallTree.tscn" id="6_tw0nm"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_v7j0u"]
-size = Vector2(40, 40)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u7pjb"]
-albedo_color = Color(0.47007585, 0.47007585, 0.47007585, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kpyfb"]
-size = Vector3(40, 0.1, 40)
-
 [node name="EndofPath" type="Node3D"]
-
-[node name="Ground" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_v7j0u")
-surface_material_override/0 = SubResource("StandardMaterial3D_u7pjb")
-
-[node name="GroundBody" type="StaticBody3D" parent="Ground"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/GroundBody"]
-shape = SubResource("BoxShape3D_kpyfb")
 
 [node name="EnvironmentCluster" parent="." instance=ExtResource("1_74pl4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.205982, 0.09393513, -12.503065)
