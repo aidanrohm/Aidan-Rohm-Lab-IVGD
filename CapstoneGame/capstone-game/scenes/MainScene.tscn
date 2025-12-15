@@ -364,11 +364,11 @@ skeleton = NodePath("../Ground")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player Environment Folder/EndOfPath/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0ehpd")
 
-[node name="LargeEnvironmentCluster" parent="." instance=ExtResource("13_08o8g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.627403, 0.060822368, -127.67199)
+[node name="PointyTreeCluster14" parent="Player Environment Folder" instance=ExtResource("9_cfq0f")]
+transform = Transform3D(1.8879611, 0, 2.331438, 0, 3, 0, -2.331438, 0, 1.8879611, 9.216187, -0.027492523, -119.34077)
 
-[node name="PointyTreeCluster" parent="." instance=ExtResource("9_cfq0f")]
+[node name="PointyTreeCluster13" parent="Player Environment Folder" instance=ExtResource("9_cfq0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.199455, 0, -110.295746)
 
-[node name="PointyTreeCluster2" parent="." instance=ExtResource("9_cfq0f")]
-transform = Transform3D(1.8879611, 0, 2.331438, 0, 3, 0, -2.331438, 0, 1.8879611, 9.216187, -0.027492523, -119.34077)
+[node name="LargeEnvironmentCluster10" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.627403, 0.060822368, -105.19603)
