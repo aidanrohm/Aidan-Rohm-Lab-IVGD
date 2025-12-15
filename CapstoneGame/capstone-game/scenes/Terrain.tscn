@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0gngeibf3404"]
+
+[ext_resource type="PackedScene" uid="uid://du60b8jomfo5y" path="res://assets/Environment/mountain01.fbx" id="1_yd2fl"]
+[ext_resource type="Material" uid="uid://bitycg4edv43d" path="res://materials/Mountain_Material.tres" id="2_surk7"]
+
+[node name="Terrain" instance=ExtResource("1_yd2fl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 91.63009)
+
+[node name="mountain01" parent="." index="0"]
+material_override = ExtResource("2_surk7")
