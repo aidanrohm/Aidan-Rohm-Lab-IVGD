@@ -22,6 +22,3 @@ func _process(_delta: float) -> void:
 		sun.rotation_degrees = sun_start_rot.lerp(sun_mid_rot, progress * 2.0)
 	else:
 		sun.rotation_degrees = sun_mid_rot.lerp(sun_end_rot, (progress - 0.5) * 2.0)
-
-	# DEBUG: print to confirm it's changing
-	print("z:", player.position.z, " progress:", progress, " sun:", sun.rotation_degrees)

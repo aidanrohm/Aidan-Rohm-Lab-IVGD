@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cti8r4yot6ak1"]
+
+[ext_resource type="Texture2D" uid="uid://dnlwc333p7i75" path="res://assets/letters/Letter1.png" id="1_5rcgv"]
+[ext_resource type="PackedScene" uid="uid://1ckkf3r3mqhs" path="res://interaction/InteractionComponent.tscn" id="2_4dpok"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dpok"]
+transparency = 1
+albedo_texture = ExtResource("1_5rcgv")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ler8b"]
+material = SubResource("StandardMaterial3D_4dpok")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lcg10"]
+size = Vector3(2.25, 0.3, 2.2)
+
+[node name="Letter1Note" type="StaticBody3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.086, 0, 0, 0, 1, 0, 0, 0, 1.08, 0, 0, 0)
+layers = 2
+mesh = SubResource("PlaneMesh_ler8b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007148266, 0, 0.002960205)
+shape = SubResource("BoxShape3D_lcg10")
+
+[node name="InteractionComponent" parent="." node_paths=PackedStringArray("object_ref") instance=ExtResource("2_4dpok")]
+object_ref = NodePath("..")
