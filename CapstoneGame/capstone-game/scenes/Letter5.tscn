@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqlumveee1frv"]
+[gd_scene load_steps=7 format=3 uid="uid://bqlumveee1frv"]
 
 [ext_resource type="Texture2D" uid="uid://db4pjsnfnjvfl" path="res://assets/letters/Letter5.png" id="1_82th3"]
 [ext_resource type="PackedScene" uid="uid://1ckkf3r3mqhs" path="res://interaction/InteractionComponent.tscn" id="2_1gxjj"]
+[ext_resource type="AudioStream" uid="uid://crmy1q5euvu35" path="res://assets/Sounds/page-flip-sound-effect-384077.mp3" id="3_1gxjj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gxjj"]
 albedo_texture = ExtResource("1_82th3")
@@ -25,3 +26,9 @@ shape = SubResource("BoxShape3D_lcg10")
 
 [node name="InteractionComponent" parent="." node_paths=PackedStringArray("object_ref") instance=ExtResource("2_1gxjj")]
 object_ref = NodePath("..")
+is_final_note = true
+
+[node name="PaperSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_1gxjj")
+volume_db = -12.0
+max_distance = 6.0

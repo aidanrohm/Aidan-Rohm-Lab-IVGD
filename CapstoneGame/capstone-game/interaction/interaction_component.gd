@@ -1,138 +1,185 @@
+# InteractionComponent:
+# Handles the item iteractions for letters
+# Responsibilities:
+# - Detect / track when the player clicks on a note
+# - Pull the note towards the player's hand marker in the world
+# - When close enough, collect the note by reparenting it in the NoteHand (to give correct view)
+# - Allow the note to be put away by reparenting into NoteStorage and hiding it
+#		which can be used to create a diary system in future development
+# - Immediately disable collision on interaction to prevent the node from getting pushed
+
 extends Node
 
-signal item_collected(item_node: Node)
+# Signals emitted to the InteractionController
+signal item_collected
+signal item_put_away
 
-# Only one interaction type exists in your game now.
+# Used enum for InteractionType for future development to make more interactions
 enum InteractionType { ITEM }
-
 @export var interaction_type: InteractionType = InteractionType.ITEM
 
-# Point this to the ITEM node (your StaticBody3D) or a Node3D parent that visually represents it.
 @export var object_ref: Node3D
-
-# Keeps compatibility with your controller's isCameraLocked()
 @export var lock_camera: bool = false
 
-# "Pull" tuning (manual movement, not physics)
-@export var pull_speed: float = 12.0          # higher = snappier
-@export var stop_distance: float = 0.12       # how close to hand before "collect" triggers
-@export var disable_collision_while_held: bool = true
+# Used for picking up the items/notes
+@export var pull_speed: float = 12.0
+@export var stop_distance: float = 0.15
+@export var collect_distance: float = 0.18
 
-# Optional pickup sound
-@export var pickup_sound: AudioStream
-@export var sound_volume_db: float = -6.0
+@export var disable_collision_while_pulling: bool = true
 
+# Render layers for the notes to be visible at specific times
+@export var note_visual_layer: int = 2
+
+# Default unless it is the last letter aka Letter5
+@export var is_final_note: bool = false
+@export var ending_scene_path: String = "res://scenes/EndingScreen.tscn"
+
+# Variables for interaction
 var can_interact: bool = true
 var is_interacting: bool = false
+
 var player_hand: Marker3D = null
+var note_hand: Node3D = null
+var note_storage: Node3D = null
 
 var _collected: bool = false
-var _saved_layer: int = 0
-var _saved_mask: int = 0
-var _pickup_player: AudioStreamPlayer3D
+var _put_away: bool = false
 
-
-func _ready() -> void:
-	_pickup_player = AudioStreamPlayer3D.new()
-	add_child(_pickup_player)
-	_pickup_player.bus = "Master"
-	_pickup_player.volume_db = sound_volume_db
-
-
-# Run once when the player first clicks
-func pre_interact(hand: Marker3D) -> void:
-	if _collected:
+func pre_interact(hand: Marker3D, note_hand_node: Node3D, note_storage_node: Node3D) -> void:
+	# If already collected do nothing
+	if _collected or not can_interact:
 		return
+	
+	# Mark the interactiona s active and cache references from the player
 	is_interacting = true
 	player_hand = hand
+	note_hand = note_hand_node
+	note_storage = note_storage_node
+	
+	# If the object_ref wasn't set, try to infer it
+	if object_ref == null:
+		object_ref = _find_staticbody_parent()
+		if object_ref == null:
+			object_ref = get_parent() as Node3D
+	
+	# Preventing a click from the player from pushing the note in the environment
+	if object_ref != null and disable_collision_while_pulling:
+		_disable_collision_immediately(object_ref)
 
-	# Optional: disable collisions while held so it doesn't block raycasts
-	if disable_collision_while_held:
-		_set_item_collision_enabled(false)
-
-
-# Run every frame while holding primary
+# Called in each frame while the primary click is held
 func interact() -> void:
-	if _collected or not can_interact or not is_interacting:
+	if not can_interact or not is_interacting or _collected:
 		return
 
-	_pull_to_hand_and_collect_if_close()
+	_item_pull_to_hand()
 
-
-# Runs once when the player last interacts with an object
+# Called by the controller when the primary click is released on interaction
 func post_interact() -> void:
 	is_interacting = false
 	player_hand = null
+	note_hand = null
+	note_storage = null
 
-	# If we didn't collect, restore collision
-	if disable_collision_while_held and not _collected:
-		_set_item_collision_enabled(true)
+# Controller for putting the letter away when E is pressed
+func put_away() -> void:
+	if not _collected or _put_away:
+		return
+	if object_ref == null or note_storage == null:
+		return
 
+	_put_away = true
 
-func _pull_to_hand_and_collect_if_close() -> void:
+	var old_parent: Node = object_ref.get_parent()
+	if old_parent != null:
+		old_parent.remove_child(object_ref)
+	note_storage.add_child(object_ref)
+
+	_set_visual_layers_off_recursive(object_ref)
+
+	emit_signal("item_put_away")
+
+# Move the note to the player hand so it is visible in the view
+func _item_pull_to_hand() -> void:
 	if object_ref == null or player_hand == null:
 		return
 
 	var current_pos: Vector3 = object_ref.global_position
 	var target_pos: Vector3 = player_hand.global_position
-	var to_target: Vector3 = target_pos - current_pos
-	var dist: float = to_target.length()
 
-	# Close enough -> collect
-	if dist <= stop_distance:
-		object_ref.global_position = target_pos
-		_collect_item()
+	var to_hand: Vector3 = target_pos - current_pos
+	var dist: float = to_hand.length()
+
+	if dist <= collect_distance:
+		_collect_to_note_hand()
 		return
 
-	# Move toward hand (frame-rate independent)
-	var step: float = pull_speed * get_process_delta_time()
-	object_ref.global_position = current_pos + to_target.normalized() * min(step, dist)
+	# Smooth pull (manual)
+	object_ref.global_position = current_pos.lerp(
+		target_pos,
+		clamp(pull_speed * 0.02, 0.001, 0.5)
+	)
 
-
-func _collect_item() -> void:
-	if _collected:
+# Logic for pickup, reparenting the note into the NoteHand and forcing the visual layer for the camera
+func _collect_to_note_hand() -> void:
+	if _collected or object_ref == null or note_hand == null:
 		return
+
 	_collected = true
-	is_interacting = false
 	can_interact = false
+	is_interacting = false
 
-	# Keep collisions off so it can't be picked again (even for the brief frame before free)
-	if disable_collision_while_held:
-		_set_item_collision_enabled(false)
+	_set_visual_layer_recursive(object_ref, note_visual_layer)
 
-	_play_pickup_sound()
+	var old_parent: Node = object_ref.get_parent()
+	if old_parent != null:
+		old_parent.remove_child(object_ref)
+	note_hand.add_child(object_ref)
 
-	# Match the original pattern: emit a signal for game/inventory logic,
-	# then remove the item from the world.
-	emit_signal("item_collected", get_parent())
-	get_parent().queue_free()
+	object_ref.global_transform = note_hand.global_transform
 
+	emit_signal("item_collected")
 
-func _play_pickup_sound() -> void:
-	if pickup_sound == null:
-		return
-	_pickup_player.stream = pickup_sound
-	_pickup_player.play()
+# Utility function
+func _find_staticbody_parent() -> Node3D:
+	var p: Node = get_parent()
+	while p != null:
+		if p is StaticBody3D:
+			return p as Node3D
+		p = p.get_parent()
+	return null
 
+# Collision handling to prevent physics push-back glitching
+func _disable_collision_immediately(root: Node3D) -> void:
+	if root is CollisionObject3D:
+		var co := root as CollisionObject3D
+		co.collision_layer = 0
+		co.collision_mask = 0
 
-func _set_item_collision_enabled(enabled: bool) -> void:
-	var static_body := object_ref as StaticBody3D
-	if static_body == null:
-		return
+	for c in _collect_collision_objects(root):
+		c.collision_layer = 0
+		c.collision_mask = 0
 
-	# Save the original layers/masks once
-	if _saved_layer == 0 and _saved_mask == 0:
-		_saved_layer = static_body.collision_layer
-		_saved_mask = static_body.collision_mask
+# Recursively gather all collision object nodes under a root
+func _collect_collision_objects(root: Node) -> Array[CollisionObject3D]:
+	var out: Array[CollisionObject3D] = []
+	if root is CollisionObject3D:
+		out.append(root)
+	for ch in root.get_children():
+		out.append_array(_collect_collision_objects(ch))
+	return out
 
-	if enabled:
-		static_body.collision_layer = _saved_layer
-		static_body.collision_mask = _saved_mask
-	else:
-		static_body.collision_layer = 0
-		static_body.collision_mask = 0
+# Visual layer helpers specifically for the NoteCamera rendering
+func _set_visual_layer_recursive(root: Node, layer_index: int) -> void:
+	if root is VisualInstance3D:
+		var v := root as VisualInstance3D
+		v.layers = 0
+		v.set_layer_mask_value(layer_index, true)
+	for c in root.get_children():
+		_set_visual_layer_recursive(c, layer_index)
 
-	# Toggle any CollisionShape3D children too
-	for child in static_body.get_children():
-		if child is CollisionShape3D:
-			(child as CollisionShape3D).disabled = not enabled
+func _set_visual_layers_off_recursive(root: Node) -> void:
+	if root is VisualInstance3D:
+		(root as VisualInstance3D).layers = 0
+	for c in root.get_children():
+		_set_visual_layers_off_recursive(c)

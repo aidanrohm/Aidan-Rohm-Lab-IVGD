@@ -1,3 +1,6 @@
+# A simple script to dictate the world environment, specifically the sun and how
+# it is oriented in the world
+
 extends Node3D
 
 @onready var player: CharacterBody3D = get_node("../Player")
@@ -8,9 +11,9 @@ extends Node3D
 
 var progress: float = 0.0
 
-var sun_start_rot := Vector3(-5.0, 180.0, 0.0) # in front
+var sun_start_rot := Vector3(-30.0, 180.0, 0.0) # in front
 var sun_mid_rot   := Vector3(-90.0, 90.0, 0.0) # overhead
-var sun_end_rot   := Vector3(-175.0, 0.0, 0.0) # behind
+var sun_end_rot   := Vector3(-150.0, 0.0, 0.0) # behind
 
 func _process(_delta: float) -> void:
 	# 1) Compute progress along Z

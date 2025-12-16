@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://vu83vt2xvqj5"]
 
-[ext_resource type="PackedScene" uid="uid://ccfalaf8kqd2g" path="res://assets/Tree_Bare_2_A_Color1.fbx" id="1_mojkx"]
+[ext_resource type="PackedScene" uid="uid://ccfalaf8kqd2g" path="res://assets/Environment/Tree_Bare_2_A_Color1.fbx" id="1_mojkx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pxat1"]
-radius = 0.22558594
+radius = 0.14160156
 height = 2.171875
 
 [node name="BarePointyTree" instance=ExtResource("1_mojkx")]

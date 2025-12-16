@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://bu40rgbtav6x5"]
 
 [ext_resource type="Script" uid="uid://piloo72r1dye" path="res://scripts/player.gd" id="1_p0vlq"]
-[ext_resource type="AudioStream" uid="uid://bvo5ve46l1p8k" path="res://assets/Sounds/heavy-footsteps-walking-35722.mp3" id="2_3li8b"]
 [ext_resource type="PackedScene" uid="uid://bh7bh05xf70kt" path="res://interaction/InteractionController.tscn" id="2_qu4a1"]
 [ext_resource type="AudioStream" uid="uid://bdtl8raws0eb7" path="res://assets/Sounds/tinnitus-31244.mp3" id="2_v6fml"]
-[ext_resource type="PackedScene" uid="uid://cti8r4yot6ak1" path="res://scenes/Letter1.tscn" id="3_khinc"]
+[ext_resource type="Script" uid="uid://blvy00hsxk67x" path="res://scripts/note_anchor.gd" id="3_khinc"]
+[ext_resource type="AudioStream" uid="uid://boe7ebpxxcc80" path="res://assets/Sounds/footsteps-on-nature-trail-419015.mp3" id="4_khinc"]
 [ext_resource type="Texture2D" uid="uid://ds0k57u2iuf7l" path="res://assets/white_reticle.png" id="4_mdl7e"]
 [ext_resource type="Texture2D" uid="uid://4oo331p221ig" path="res://assets/tile_0155.png" id="6_cw2d6"]
 [ext_resource type="Texture2D" uid="uid://cy8vfn8wa3wh7" path="res://assets/tile_0156.png" id="7_khinc"]
@@ -36,11 +36,11 @@ current = true
 
 [node name="InteractionRaycast" type="RayCast3D" parent="Neck/Camera3D"]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, -2)
+target_position = Vector3(0, 0, -3)
 
 [node name="Hand" type="Marker3D" parent="Neck/Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Neck"]
 
@@ -62,15 +62,23 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 1.6, 0.1)
 cull_mask = 2
 
-[node name="NoteHand" type="Marker3D" parent="Neck/SubViewportContainer/SubViewport/NoteCamera"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.9559366, -0.2935732, 0, 0.2935732, 0.9559366, -0.69899297, -0.13493764, -0.82601094)
+[node name="NoteAnchor" type="Node3D" parent="Neck/SubViewportContainer/SubViewport/NoteCamera"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("3_khinc")
 
-[node name="Letter1Note" parent="Neck/SubViewportContainer/SubViewport/NoteCamera/NoteHand" instance=ExtResource("3_khinc")]
+[node name="NoteHand" type="Marker3D" parent="Neck/SubViewportContainer/SubViewport/NoteCamera/NoteAnchor"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -2.9802322e-08, -1, 0, 1, -2.9802322e-08, -2, -0.4000001, -3.0000007)
+
+[node name="NoteStorage" type="Node3D" parent="Neck/SubViewportContainer/SubViewport"]
 
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018434048, 0)
-stream = ExtResource("2_3li8b")
+stream = ExtResource("4_khinc")
+volume_db = -30.0
+max_db = -12.0
+max_distance = 20.0
+bus = &"Footsteps"
 
 [node name="RingingPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018434048, 0)
@@ -113,3 +121,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("7_khinc")
 stretch_mode = 3
+
+[node name="PutAwayPrompt" type="Label" parent="GUI"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Press E to put away"

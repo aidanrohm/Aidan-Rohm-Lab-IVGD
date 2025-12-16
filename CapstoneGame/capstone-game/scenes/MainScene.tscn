@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b8c43hnutq0qo"]
+[gd_scene load_steps=40 format=3 uid="uid://b8c43hnutq0qo"]
 
 [ext_resource type="PackedScene" uid="uid://bu40rgbtav6x5" path="res://scenes/Player.tscn" id="1_echbf"]
 [ext_resource type="Script" uid="uid://dyihmm3c1jv6j" path="res://scripts/game_controller.gd" id="2_ibiss"]
@@ -19,6 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://did2yvdyp1hec" path="res://scenes/ThreeTierTree.tscn" id="17_8wjpf"]
 [ext_resource type="PackedScene" uid="uid://hlricuxtyyot" path="res://scenes/EnvironmentCluster.tscn" id="18_25dfr"]
 [ext_resource type="PackedScene" uid="uid://cti8r4yot6ak1" path="res://scenes/Letter1.tscn" id="19_25dfr"]
+[ext_resource type="AudioStream" uid="uid://ceaph7r8q15g0" path="res://assets/Sounds/birds-chirping-75156.mp3" id="19_a7pbh"]
+[ext_resource type="PackedScene" uid="uid://kp52jmentxl5" path="res://scenes/Letter2.tscn" id="20_1ns3k"]
+[ext_resource type="AudioStream" uid="uid://dysddl3vnvvta" path="res://assets/Sounds/bird-sounds-in-the-forest-223177.mp3" id="20_ye0jt"]
+[ext_resource type="PackedScene" uid="uid://wc2qhpyby1np" path="res://scenes/Letter3.tscn" id="21_a7pbh"]
+[ext_resource type="PackedScene" uid="uid://dlu35jiuxrchb" path="res://scenes/Letter4.tscn" id="22_ye0jt"]
+[ext_resource type="PackedScene" uid="uid://bqlumveee1frv" path="res://scenes/Letter5.tscn" id="23_7wwop"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_echbf"]
 size = Vector3(249.53067, 5, 0.3)
@@ -33,7 +39,7 @@ size = Vector3(0.5, 5, 45)
 size = Vector3(15.586426, 7.223755, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ibiss"]
-size = Vector3(10.049316, 4.69458, 0.5)
+size = Vector3(16, 4.695, 0.5)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibiss"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -48,7 +54,7 @@ sky = SubResource("Sky_c6dvc")
 tonemap_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ibiss"]
-size = Vector2(12, 250)
+size = Vector2(16, 250)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6dvc"]
 albedo_color = Color(0.33333334, 0.3882353, 0.2901961, 1)
@@ -58,7 +64,7 @@ normal_enabled = true
 normal_scale = 0.3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_611at"]
-size = Vector3(10, 0.1, 250)
+size = Vector3(16, 0.1, 250)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cxu4"]
 albedo_color = Color(0.33333334, 0.3882353, 0.2901961, 1)
@@ -82,13 +88,13 @@ data = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, 20, -20, 0,
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BarrierFolder/RightWall"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.4999995, 2.5, -0.102832794)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.1574135, 2.5, -0.102832794)
 shape = SubResource("BoxShape3D_echbf")
 
 [node name="LeftWall" type="StaticBody3D" parent="BarrierFolder"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BarrierFolder/LeftWall"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 2.5, -0.103)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.335579, 2.5, -0.103)
 shape = SubResource("BoxShape3D_echbf")
 
 [node name="BehindCabin" type="StaticBody3D" parent="BarrierFolder"]
@@ -107,11 +113,11 @@ shape = SubResource("BoxShape3D_2phbr")
 [node name="ShortWallRight" type="StaticBody3D" parent="BarrierFolder"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BarrierFolder/ShortWallRight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.678269, 1.1118774, -125.3022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.904546, 1.1118774, -125.23465)
 shape = SubResource("BoxShape3D_mkg2b")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BarrierFolder/ShortWallRight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.78513, 1.1118774, -125.3022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.897583, 1.1118774, -125.3022)
 shape = SubResource("BoxShape3D_mkg2b")
 
 [node name="LeftCabin" type="StaticBody3D" parent="BarrierFolder"]
@@ -123,7 +129,7 @@ shape = SubResource("BoxShape3D_2phbr")
 [node name="BackWall" type="StaticBody3D" parent="BarrierFolder"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BarrierFolder/BackWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014404297, 2.2110596, 125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7094116, 2.2110596, 125)
 shape = SubResource("BoxShape3D_ibiss")
 
 [node name="Player Environment Folder" type="Node3D" parent="."]
@@ -150,13 +156,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.656621, 0.26267338, 102.17
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3, 0, 91.123375)
 
 [node name="BushCluster" parent="Player Environment Folder" instance=ExtResource("10_pjux3")]
-transform = Transform3D(1.9151111, 0, 1.6069689, 0, 2.5, 0, -1.6069689, 0, 1.9151111, 3.4684172, 0.08653784, 96.51127)
+transform = Transform3D(1.9151111, 0, 1.6069689, 0, 2.5, 0, -1.6069689, 0, 1.9151111, 3.4684172, -0.042762518, 96.51127)
 
 [node name="GeometricRockCluster" parent="Player Environment Folder" instance=ExtResource("11_o3jky")]
-transform = Transform3D(-0.46947157, 0, 0.88294756, 0, 1, 0, -0.88294756, 0, -0.46947157, -2.7656212, -0.03496933, 107.17589)
+transform = Transform3D(-0.46947157, 0, 0.88294756, 0, 1, 0, -0.88294756, 0, -0.46947157, -4.9005704, -0.034969687, 108.366875)
 
 [node name="LargeEnvironmentCluster" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.351542, -0.15011215, 45.953514)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.0658393, -0.24341488, 45.4848)
 
 [node name="GameController" type="Node3D" parent="Player Environment Folder"]
 script = ExtResource("2_ibiss")
@@ -222,7 +228,7 @@ transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -2.7517347, 0.06469011,
 transform = Transform3D(2.4453833, 0, 1.7378435, 0, 3, 0, -1.7378435, 0, 2.4453833, -3.7535563, 0.14645672, 20.420044)
 
 [node name="Cabin" parent="Player Environment Folder" instance=ExtResource("15_xnxdc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046901226, -0.014122248, -139.92879)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.047789097, -0.014122248, -139.92964)
 
 [node name="LargeEnvironmentCluster2" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.2683773, -0.18997717, -29.378044)
@@ -291,7 +297,7 @@ transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 13.5
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 13.516794, 0.3114457, -34.7286)
 
 [node name="LargeEnvironmentCluster7" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 13.516794, 0.3114457, 39.330193)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 13.614573, 0.3114457, 39.41028)
 
 [node name="LargeEnvironmentCluster8" parent="Player Environment Folder" instance=ExtResource("13_08o8g")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -10.796624, 0.3114457, 39.330193)
@@ -377,5 +383,36 @@ shape = SubResource("ConcavePolygonShape3D_0ehpd")
 [node name="Player" parent="Player Environment Folder" instance=ExtResource("1_echbf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 120)
 
-[node name="Letter1Note" parent="." instance=ExtResource("19_25dfr")]
-transform = Transform3D(0.19326365, 0.15843031, 0.006999914, 0.0024275691, 0.008078138, -0.24985765, -0.1585663, 0.19322161, 0.0047064424, -2.2845736, 1.5178928, 111.78863)
+[node name="BirdchirpSpot" type="Node3D" parent="Player Environment Folder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.431882, 0)
+
+[node name="BirdChirpPlayer" type="AudioStreamPlayer3D" parent="Player Environment Folder/BirdchirpSpot"]
+stream = ExtResource("19_a7pbh")
+autoplay = true
+max_distance = 50.0
+
+[node name="BirdchirpSpot2" type="Node3D" parent="Player Environment Folder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.431882, 0)
+
+[node name="BirdChirpPlayer" type="AudioStreamPlayer3D" parent="Player Environment Folder/BirdchirpSpot2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -60)
+stream = ExtResource("20_ye0jt")
+autoplay = true
+max_distance = 50.0
+
+[node name="Envelope (lol)" type="Node3D" parent="."]
+
+[node name="Letter1Note" parent="Envelope (lol)" instance=ExtResource("19_25dfr")]
+transform = Transform3D(0.11595819, 0.09505819, 0.0041999044, 0.0014565258, 0.00484683, -0.1499146, -0.09513977, 0.11593295, 0.0028238331, -2.2845736, 1.5178928, 111.78863)
+
+[node name="Letter2Note" parent="Envelope (lol)" instance=ExtResource("20_1ns3k")]
+transform = Transform3D(0.09641815, -0.081251286, -0.08125129, 0, 0.106066026, -0.10606602, 0.11490667, 0.06817792, 0.06817793, 2.9967804, 1.2463077, 56.93338)
+
+[node name="Letter3Note" parent="Envelope (lol)" instance=ExtResource("21_a7pbh")]
+transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, 0.28447348, 0.91617715, 2.5295215)
+
+[node name="Letter4Note" parent="Envelope (lol)" instance=ExtResource("22_ye0jt")]
+transform = Transform3D(0.026047235, 0.13881248, 0.050523616, 0, 0.051303025, -0.1409539, -0.14772117, 0.024476394, 0.00890868, -2.213686, 1.0966856, -83.484985)
+
+[node name="Letter5Note" parent="Envelope (lol)" instance=ExtResource("23_7wwop")]
+transform = Transform3D(0.10606602, 0, -0.10606602, 0, 0.15, 0, 0.10606602, 0, 0.10606602, -3.3453574, 0.7412786, -138.34436)

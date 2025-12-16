@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cti8r4yot6ak1"]
+[gd_scene load_steps=7 format=3 uid="uid://cti8r4yot6ak1"]
 
 [ext_resource type="Texture2D" uid="uid://dnlwc333p7i75" path="res://assets/letters/Letter1.png" id="1_5rcgv"]
 [ext_resource type="PackedScene" uid="uid://1ckkf3r3mqhs" path="res://interaction/InteractionComponent.tscn" id="2_4dpok"]
+[ext_resource type="AudioStream" uid="uid://crmy1q5euvu35" path="res://assets/Sounds/page-flip-sound-effect-384077.mp3" id="3_ler8b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dpok"]
 transparency = 1
@@ -18,7 +19,6 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.086, 0, 0, 0, 1, 0, 0, 0, 1.08, 0, 0, 0)
-layers = 2
 mesh = SubResource("PlaneMesh_ler8b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -27,3 +27,8 @@ shape = SubResource("BoxShape3D_lcg10")
 
 [node name="InteractionComponent" parent="." node_paths=PackedStringArray("object_ref") instance=ExtResource("2_4dpok")]
 object_ref = NodePath("..")
+
+[node name="PaperSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_ler8b")
+volume_db = 10.0
+max_distance = 6.0

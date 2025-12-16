@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpuvjoe1v4r8y"]
+
+[ext_resource type="Script" uid="uid://dyl4ti72w61h6" path="res://scripts/ending_screen.gd" id="1_7rubt"]
+[ext_resource type="AudioStream" uid="uid://cr50iq8cvbcx1" path="res://assets/Sounds/the-beat-of-nature-122841.mp3" id="1_xq5em"]
+[ext_resource type="AudioStream" uid="uid://c24f210crrtmj" path="res://assets/Sounds/fire-crackling-sounds-427410.mp3" id="2_7rubt"]
+
+[node name="EndingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7rubt")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+offset_right = 1152.0
+offset_bottom = 646.0
+color = Color(0.08627451, 0.14117648, 0.105882354, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+offset_right = 1154.0
+offset_bottom = 646.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="EndingText" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "End of Stream of Consciousness - Chapter 1
+
+Please come back in the future for Chapter 2!
+
+I hope you enjoyed!
+"
+
+[node name="BackToMenuButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_xq5em")
+volume_db = -20.0
+autoplay = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7rubt")
+volume_db = -30.0
+autoplay = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]

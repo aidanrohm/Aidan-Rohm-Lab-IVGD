@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7drmok5oc881"]
+
+[ext_resource type="Script" uid="uid://da5vw5mpr5r3b" path="res://scripts/how_to_play.gd" id="1_iayqv"]
+[ext_resource type="AudioStream" uid="uid://cr50iq8cvbcx1" path="res://assets/Sounds/the-beat-of-nature-122841.mp3" id="2_j20v8"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_iayqv")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+offset_right = 1153.0
+offset_bottom = 647.0
+color = Color(0.08627451, 0.14117648, 0.105882354, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+offset_right = 1155.0
+offset_bottom = 651.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls:
+
+W / Up Arrow- Walk forwards
+S / Down Arrow - Walk backwards
+A / Left Arrow - Walk left
+D / Right Arrow -  Walk Right
+
+Left Mouse Button - Interact"
+
+[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_j20v8")
+volume_db = -20.0
+autoplay = true

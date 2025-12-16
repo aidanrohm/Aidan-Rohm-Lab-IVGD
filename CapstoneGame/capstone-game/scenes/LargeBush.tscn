@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0yioblix7cfc"]
 
-[ext_resource type="PackedScene" uid="uid://1xvyr6x7lp41" path="res://assets/Bush_1_A_Color1.fbx" id="1_ben20"]
+[ext_resource type="PackedScene" uid="uid://1xvyr6x7lp41" path="res://assets/Environment/Bush_1_A_Color1.fbx" id="1_ben20"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6247d"]
-radius = 0.00850049
+radius = 0.0059656347
 
 [node name="LargeBush" instance=ExtResource("1_ben20")]
 
